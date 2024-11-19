@@ -1,0 +1,112 @@
+body{
+    background-color: #111111;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.wrapper{
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    position: absolute;
+}
+
+.wrapper textarea{
+    width: 100%;
+    background-color: #232323;
+    resize: none;
+    height: 50px;
+    outline: none;
+           /*12px \/           */
+    padding: 12px 50px 12px 30px;
+    font-size: 16px;
+    margin-top: 20px;
+    max-height: 270px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+  }
+
+textarea::-webkit-scrollbar{
+    width: 8px;
+}
+
+.mic-wrapper { 
+    position: absolute; 
+    right: -10px; /* Adjust to desired position from the right side */ 
+    bottom: 12px; /* Position at the bottom */ 
+}
+
+#microphone {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    width: 90%;  /* Size of the button */
+    height: 40px; /* Size of the button */
+}
+
+.settings-panel{
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: auto;
+    height: auto;
+    z-index: 10;
+}
+
+#panel {
+    display: none; /* Initially hidden */
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; /* Adjust the width as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    position: fixed; /* Fixed position to make it stay in the center of the screen */
+    top: 50%; /* Center it vertically */
+    left: 50%; /* Center it horizontally */
+    transform: translate(-50%, -50%); /* Apply transform to exactly center it */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+#panel.show {
+    display: block; /* Show the panel when 'show' class is added */
+}
+
+/* Close button in the panel */
+#closePanel {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    width: auto;
+    height: auto;
+}
+button img{
+    width: 50%;
+    height: 50px;
+    object-fit: contain;
+    filter: brightness(3.0);
+}
+button span{
+    display: none;
+}

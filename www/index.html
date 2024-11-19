@@ -8,8 +8,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5">Welcome to Fullstack Voice Assistant</h1>
-        <p class="lead">This is a simple voice assistant application.</p>
+    <div class="wrapper">
+        <textarea id="chatbox" name="chatbox" placeholder="Ask me anything..."></textarea>
+        <div class="mic-wrapper">
+            <button id="microphone" name="microphone">
+                <img src="assets/img/microphone.png"> 
+            </button>
+        </div>
     </div>
+    <div class="settings-panel">
+        <button id="settings-button" name="settings-button">
+            <img src="assets/img/settings_icon.png">
+        </button>
+        <div id="panel" class="hidden-panel">
+            <h3>Settings</h3>
+            <p>Customize your preferences here.</p>
+            <button id="closePanel">Close</button>
+        </div>
+    </div>
+    <script>
+        const textarea = document.querySelector("textarea");
+        textarea.addEventListener("keyup", e =>{
+        textarea.style.height = "50px";
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = `${scHeight}px`;
+        });
+      </script>
+
+      <script>
+        const settingsBtn = document.getElementById("settings-button");
+        const panel = document.getElementById("panel");
+        const closePanelBtn = document.getElementById("closePanel");
+
+        // Toggle panel visibility when clicking the settings icon
+        settingsBtn.addEventListener("click", () => {
+            panel.classList.toggle("show");
+        });
+
+        // Close the panel when clicking the close button
+        closePanelBtn.addEventListener("click", () => {
+            panel.classList.remove("show");
+        });
+      </script>
 </body>
