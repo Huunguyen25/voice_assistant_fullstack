@@ -44,7 +44,7 @@ textarea::-webkit-scrollbar{
 .mic-wrapper { 
     position: absolute; 
     right: -10px; /* Adjust to desired position from the right side */ 
-    bottom: 12px; /* Position at the bottom */ 
+    bottom: 7.7px; /* Position at the bottom */ 
 }
 
 #microphone {
@@ -52,7 +52,18 @@ textarea::-webkit-scrollbar{
     border: none;
     padding: 10px;
     width: 90%;  /* Size of the button */
-    height: 40px; /* Size of the button */
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+#microphone img {
+    width: 50%;
+    height: 50px;
+    object-fit: contain;
+    filter: brightness(3.0);
 }
 
 .settings-panel{
