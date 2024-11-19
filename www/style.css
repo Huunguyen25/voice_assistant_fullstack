@@ -14,6 +14,9 @@ body{
 }
 
 .wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -22,19 +25,20 @@ body{
 }
 
 .wrapper textarea{
+    flex: 1;
     width: 100%;
     background-color: #232323;
     resize: none;
-    height: 50px;
+    height: 30px;
+    box-shadow: 0 0 0 10px #232323; /* Mimic outline */
     outline: none;
-           /*12px \/           */
-    padding: 12px 50px 12px 30px;
+    padding: 6px 20px 8px 30px;
     font-size: 16px;
-    margin-top: 20px;
     max-height: 270px;
     border-radius: 20px;
     border: none;
     color: white;
+    overflow: auto;
   }
 
 textarea::-webkit-scrollbar{
@@ -43,15 +47,22 @@ textarea::-webkit-scrollbar{
 
 .mic-wrapper { 
     position: absolute; 
-    right: -10px; /* Adjust to desired position from the right side */ 
-    bottom: 7.7px; /* Position at the bottom */ 
+    right: -22px;
+    bottom: -2px;
 }
+
+/* .mic-wrapper {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+} */
 
 #microphone {
     background-color: transparent;
     border: none;
     padding: 10px;
-    width: 90%;  /* Size of the button */
+    width: 90%;
     height: 0;
     display: flex;
     align-items: center;
@@ -60,7 +71,7 @@ textarea::-webkit-scrollbar{
 }
 
 #microphone img {
-    width: 50%;
+    width: 60%;
     height: 50px;
     object-fit: contain;
     filter: brightness(3.0);
@@ -76,18 +87,19 @@ textarea::-webkit-scrollbar{
 }
 
 #panel {
-    display: none; /* Initially hidden */
+    display: none;
     background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
-    width: 300px; /* Adjust the width as needed */
+    width: 97.7vh;
+    height: 65vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    position: fixed; /* Fixed position to make it stay in the center of the screen */
-    top: 50%; /* Center it vertically */
-    left: 50%; /* Center it horizontally */
-    transform: translate(-50%, -50%); /* Apply transform to exactly center it */
-    z-index: 1000; /* Ensure it stays above other elements */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
 }
 
 #panel.show {
@@ -96,6 +108,7 @@ textarea::-webkit-scrollbar{
 
 /* Close button in the panel */
 #closePanel {
+    position: absolute;
     background-color: #444;
     color: white;
     padding: 5px 10px;
