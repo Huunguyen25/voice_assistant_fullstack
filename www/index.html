@@ -21,9 +21,13 @@
             <img src="assets/img/settings_icon.png">
         </button>
         <div id="panel" class="hidden-panel">
-            <h3>Settings</h3>
-            <p>Customize your preferences here.</p>
-            <button id="closePanel"><img src="assets/img/close_icon.png"></button>
+            <h3 id="settings-text">Settings</h3>
+            <button id="closePanel">
+                <img src="assets/img/close_icon.png">
+            </button>
+            <button name="preferences" id="preferences">
+                <label id="preferences-text">Preferences</label>
+            </button>
         </div>
     </div>
     <script>
@@ -49,4 +53,5 @@
             panel.classList.remove("show");
         });
     </script>
+    <script src="/eel.js"></script>
 </body>
