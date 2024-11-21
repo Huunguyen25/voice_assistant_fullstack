@@ -4,6 +4,8 @@ body{
     height: 100vh;
     margin: 0;
     position: relative;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
@@ -84,51 +86,36 @@ textarea::-webkit-scrollbar-corner{
     filter: brightness(3.0);
 }
 
-/* .settings-panel{
+/* parent div for settings */
+.settings{
     position: fixed;
     width: 100%;
     height: 100%;
-    right: 0;
-    bottom: 0;
     pointer-events: auto;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    padding: 10px 10px 10px 10px;
     z-index: 10;
-}  */
-
-.settings-panel{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    right: 0;
-    bottom: 0;
-    pointer-events: auto;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 } 
-
-#panel {
-    display: none;
-    background-color: #333;
-    color: white;
-    border: 30px solid #333;
-    border-radius: 10px;
-    width: 500px;
-    height: 350px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+.settings button{
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    height: auto;
 }
-
-.settings-panel button{
+.settings button img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    filter: brightness(3.0);
+}
+#settings-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
     background-color: transparent;
     border: none;
     padding: 0px;
@@ -137,19 +124,41 @@ textarea::-webkit-scrollbar-corner{
     height: auto;
 }
 
-.settings-panel button img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    filter: brightness(3.0);
+/*hidden settings panel styliing */
+
+#settings-panel {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: flex-start; /* Align items at the top */
+    align-items: center; /* Center items horizontally */
+    background-color: #333;
+    color: white;
+    border: 30px solid #333;
+    border-radius: 10px;
+    width: 600px;
+    height: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    padding: 11px;
+    position: relative;
 }
 
-#panel.show {
-    display: block; /* Show the panel when 'show' class is added */
+#settings-panel.show {
+    display: block;
 }
 
-#closePanel {
-    position: inherit;
+#closePanelBtn button{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+#closePanelBtn {
+    position: absolute;
     top: 0px;
     right: 0px;
     background-color: transparent;
@@ -162,7 +171,7 @@ textarea::-webkit-scrollbar-corner{
     height: auto;
 }
 
-#closePanel img {
+#closePanelBtn img {
     display: block;
     width: 30px;
     height: 30px;
@@ -170,26 +179,19 @@ textarea::-webkit-scrollbar-corner{
     background-color: transparent;
 }
 
+#preferences {
+    position: absolute;
+    padding: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
 #preferences-text{
     color: white;
 }
 
-#settings-text {
-    align-self: center;
+#settings-text{
+    font-weight: bold;
 }
-
-/* button {
-    background-color: transparent;
-    border: none;
-    width: auto;
-    height: auto;
-}
-button img{
-    width: 50%;
-    height: 50px;
-    object-fit: contain;
-    filter: brightness(3.0);
-}
-button span{
-    display: none;
-} */

@@ -16,13 +16,13 @@
             </button>
         </div>
     </div>
-    <div class="settings-panel">
+    <div class="settings">
         <button id="settings-button" name="settings-button">
             <img src="assets/img/settings_icon.png">
         </button>
-        <div id="panel" class="hidden-panel">
+        <div id="settings-panel" class="settings-panel">
             <h3 id="settings-text">Settings</h3>
-            <button id="closePanel">
+            <button id="closePanelBtn">
                 <img src="assets/img/close_icon.png">
             </button>
             <button name="preferences" id="preferences">
@@ -40,17 +40,17 @@
     </script>
     <script>
         const settingsBtn = document.getElementById("settings-button");
-        const panel = document.getElementById("panel");
-        const closePanelBtn = document.getElementById("closePanel");
+        const panel = document.getElementById("settings-panel");
+        const closePanelBtn = document.getElementById("closePanelBtn");
 
         // Toggle panel visibility when clicking the settings icon
         settingsBtn.addEventListener("click", () => {
-            panel.classList.toggle("show");
+            panel.style.display = panel.style.display === "flex" ? "none" : "flex";
         });
 
         // Close the panel when clicking the close button
         closePanelBtn.addEventListener("click", () => {
-            panel.classList.remove("show");
+            panel.style.display = "none"; // Hide the panel
         });
     </script>
     <script src="/eel.js"></script>
