@@ -18,7 +18,7 @@ body{
 .wrapper{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -61,13 +61,6 @@ textarea::-webkit-scrollbar-corner{
     bottom: 13px;
 }
 
-/* .mic-wrapper {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-} */
-
 #microphone {
     background-color: transparent;
     border: none;
@@ -97,7 +90,9 @@ textarea::-webkit-scrollbar-corner{
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
 } 
+
 .settings button{
     background-color: transparent;
     border: none;
@@ -122,29 +117,38 @@ textarea::-webkit-scrollbar-corner{
     margin: 0px;
     width: auto;
     height: auto;
+    pointer-events: auto;
 }
 
 /*hidden settings panel styliing */
 
-#settings-panel {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: flex-start; /* Align items at the top */
-    align-items: center; /* Center items horizontally */
-    background-color: #333;
+.settings-panel {
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #252525;
     color: white;
-    border: 30px solid #333;
+    border: 30px solid #252525;
     border-radius: 10px;
     width: 600px;
-    height: 350px;
+    height: 330px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     z-index: 1000;
-    padding: 11px;
+    position: relative;
+    pointer-events: auto;
     position: relative;
 }
 
-#settings-panel.show {
+.settings-panel.show {
     display: block;
+}
+
+.settings-panel button{
+    color: white;
+}
+.settings-panel label{
+    pointer-events: none;
 }
 
 #closePanelBtn button{
@@ -179,7 +183,32 @@ textarea::-webkit-scrollbar-corner{
     background-color: transparent;
 }
 
+.pref-sys-web {
+    
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: space-evenly; /* Align buttons to the top */
+    align-items: flex-start; /* Align buttons to the left */
+    width: 100%; /* Ensure the div takes full width for proper alignment */
+    padding: 10px;
+    gap: 5px;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.pref-sys-web button{
+    display: flex;
+    left: 0px;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    width: auto;
+    box-sizing: border-box;
+}
+
+/* 
 #preferences {
+    display: flex;
     position: absolute;
     padding: 10px;
     left: 10px;
@@ -190,8 +219,16 @@ textarea::-webkit-scrollbar-corner{
 }
 #preferences-text{
     color: white;
+    display: inline;
 }
+*/
 
-#settings-text{
-    font-weight: bold;
+#settings-text {
+    font-weight:600;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    flex-grow: 0;    /* Prevent it from taking up extra space */
+    align-self: center;  /* Center it horizontally */
 }
