@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #111111;
     width: 100%;
     height: 100vh;
@@ -7,15 +7,13 @@ body{
     align-items: center;
     justify-content: center;
 }
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
-
-.wrapper{
+.wrapper {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -25,14 +23,13 @@ body{
     width: 50%;
     position: absolute;
 }
-
-.wrapper textarea{
+.wrapper textarea {
     flex: 1;
     width: 100%;
     background-color: #232323;
     resize: none;
     height: 30px;
-    box-shadow: 0 0 0 10px #232323; /* Mimic outline */
+    box-shadow: 0 0 0 10px #232323;
     outline: none;
     padding: 6px 32px 6px 32px;
     font-size: 16px;
@@ -42,17 +39,17 @@ body{
     color: white;
     overflow: auto;
     line-height: 17px;
-  }
+}
 
-textarea::-webkit-scrollbar{
+textarea::-webkit-scrollbar {
     width: 8px;
 }
 
-textarea::-webkit-scrollbar-corner{
+textarea::-webkit-scrollbar-corner {
     right: 100px;
 }
 
-.mic-wrapper { 
+.mic-wrapper {
     position: absolute;
     display: flex;
     align-items: center;
@@ -76,11 +73,12 @@ textarea::-webkit-scrollbar-corner{
     width: 60%;
     height: 50px;
     object-fit: contain;
+    background-color: transparent;
     filter: brightness(3.0);
 }
 
 /* parent div for settings */
-.settings{
+.settings {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -91,9 +89,8 @@ textarea::-webkit-scrollbar-corner{
     justify-content: center;
     align-items: center;
     pointer-events: none;
-} 
-
-.settings button{
+}
+.settings button {
     background-color: transparent;
     border: none;
     padding: 0px;
@@ -101,12 +98,13 @@ textarea::-webkit-scrollbar-corner{
     width: auto;
     height: auto;
 }
+
 .settings button img {
     width: 30px;
     height: 30px;
     object-fit: contain;
-    filter: brightness(3.0);
 }
+
 #settings-button {
     position: fixed;
     top: 10px;
@@ -120,8 +118,7 @@ textarea::-webkit-scrollbar-corner{
     pointer-events: auto;
 }
 
-/*hidden settings panel styliing */
-
+/*hidden settings panel styling */
 .settings-panel {
     display: none;
     flex-direction: column;
@@ -144,15 +141,15 @@ textarea::-webkit-scrollbar-corner{
     display: block;
 }
 
-.settings-panel button{
+.settings-panel button {
     color: white;
 }
-.settings-panel label{
+
+.settings-panel label {
     pointer-events: none;
 }
 
-#closePanelBtn button{
-    background-color: transparent;
+#closePanelBtn button {
     border: none;
     padding: 0;
     margin: 0;
@@ -165,7 +162,6 @@ textarea::-webkit-scrollbar-corner{
     position: absolute;
     top: 0px;
     right: 0px;
-    background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
@@ -176,59 +172,203 @@ textarea::-webkit-scrollbar-corner{
 }
 
 #closePanelBtn img {
-    display: block;
+    display: flex;
     width: 30px;
     height: 30px;
     object-fit: contain;
     background-color: transparent;
+    filter: brightness(3.0);
 }
 
 .pref-sys-web {
-    
+
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    justify-content: space-evenly; /* Align buttons to the top */
-    align-items: flex-start; /* Align buttons to the left */
-    width: 100%; /* Ensure the div takes full width for proper alignment */
+    position: relative;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
     padding: 10px;
     gap: 5px;
     width: 100%;
     flex-grow: 1;
 }
 
-.pref-sys-web button{
+.pref-sys-web button {
     display: flex;
     left: 0px;
-    padding: 10px;
+    padding: 0px;
     text-align: left;
     cursor: pointer;
     width: auto;
     box-sizing: border-box;
 }
 
-/* 
-#preferences {
-    display: flex;
+#preferences,
+#system-settings,
+#web-settings {
+    position: relative;
+}
+
+#preferences::after,
+#system-settings::after,
+#web-settings::after {
+    content: '';
     position: absolute;
-    padding: 10px;
-    left: 10px;
-    background-color: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
 }
-#preferences-text{
-    color: white;
-    display: inline;
+
+#preferences:hover::after,
+#system-settings:hover::after,
+#web-settings:hover::after {
+    transform: scaleX(1);
 }
-*/
+
 
 #settings-text {
-    font-weight:600;
+    font-weight: 600;
     font-size: 20px;
     margin: 0;
     padding: 0;
     text-align: center;
-    flex-grow: 0;    /* Prevent it from taking up extra space */
-    align-self: center;  /* Center it horizontally */
+    flex-grow: 0;
+    align-self: center;
+}
+
+.menu-container {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    width: 416px;
+    height: auto;
+    min-height: 200px;
+    max-height: 100%;
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    display: none;
+    padding: 20px;
+}
+
+.menu-container.show {
+    display: flex;
+}
+
+.preferences-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    max-height: 100%;
+}
+
+.preferences-section > select {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    padding: 10px 20px 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #424242;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #232323;
+    color: white;
+    position: relative;
+    padding-right: 30px;
+}
+
+#preferences-section img, 
+#system-settings-section img, 
+#web-settings-section img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    filter: brightness(3.0);
+}
+
+/* TODO: implement settings section HERE */
+.settings-section {
+    
+}
+
+
+@media (prefers-color-scheme: dark) {
+    body {
+      filter: invert(100%) hue-rotate(180deg);
+    }
+  
+    html {
+      background-color: #111;
+    }
+  
+    img, video, iframe, svg {
+      filter: invert(100%) hue-rotate(180deg);
+    }
+  
+    video:fullscreen {
+      filter: none;
+    }
+  
+    .icon {
+      filter: invert(15%) hue-rotate(180deg);
+    }
+  
+    pre {
+      filter: invert(6%);
+    }
+  
+    li::marker {
+      color: #666;
+    }
+  }
+  
+  /* Light mode */
+  body.light-mode {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body.dark-mode {
+  filter: none;
+}
+
+body.light-mode html {
+  background-color: #eee;
+}
+
+body.dark-mode html {
+  background-color: #111;
+}
+
+body.light-mode img,
+body.light-mode video,
+body.light-mode iframe,
+body.light-mode svg
+{
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body.light-mode video:fullscreen {
+  filter: none;
+}
+
+body.light-mode .icon {
+  filter: invert(15%) hue-rotate(180deg);
+}
+
+body.light-mode pre {
+  filter: invert(6%);
+}
+
+body.light-mode li::marker {
+  color: #666;
 }
