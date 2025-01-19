@@ -4,29 +4,35 @@ function toggleButtons() {
     const sendButton = document.getElementById('send-btn');
     
     if (chatbox.value.trim()) {
-        microphoneButton.style.display = 'none';  // Hide microphone
-        sendButton.style.display = 'flex';      // Show send button
+        microphoneButton.style.display = 'none';
+        sendButton.style.display = 'flex';
     } else {
-        microphoneButton.style.display = 'flex'; // Show microphone
-        sendButton.style.display = 'none';      // Hide send button
+        microphoneButton.style.display = 'flex';
+        sendButton.style.display = 'none';
     }
 }
 
-// Function to add a new message
 function addMessage(text, isAI = false) {
     const messagesList = document.getElementById('messages-list');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isAI ? 'ai-message' : 'user-message'}`;
 
-    
-    messageDiv.innerHTML = `
-        <div class="message-avatar">
-            <img src="assets/img/${isAI ? 'icon/chat-avatar.png' : 'user-avatar.png'}" alt="${isAI ? 'AI' : 'User'}">
-        </div>
-        <div class="message-content">
-            <div class="message-text">${text}</div>
-        </div>
-    `;
+    if (isAI) {
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <img src="assets/img/icon/chat-avatar.png" alt="AI">
+            </div>
+            <div class="message-content">
+                <div class="message-text">${text}</div>
+            </div>
+        `;
+    } else {
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <div class="message-text">${text}</div>
+            </div>
+        `;
+    }
     
     messagesList.appendChild(messageDiv);
     scrollToBottom();
@@ -42,25 +48,22 @@ function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Handle sending messages
 document.getElementById('send-btn').addEventListener('click', () => {
     const chatbox = document.getElementById('chatbox');
     const message = chatbox.value.trim();
     
     if (message) {
-        // Add user message
         addMessage(message, false);
         chatbox.value = '';
         toggleButtons();
-        
-        // Simulate AI response (replace this with your actual AI implementation)
+
         setTimeout(() => {
+            //TODO: Replace with ai response
             addMessage('This is a sample AI response this message is is to test whether the chabot is working and if the width is correct.', true);
         }, 1000);
     }
 });
 
-// Handle Enter key to send message
 document.getElementById('chatbox').addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -68,8 +71,6 @@ document.getElementById('chatbox').addEventListener('keypress', (e) => {
     }
 });
 
-// Add input event listener for toggle logic
 document.getElementById('chatbox').addEventListener('input', toggleButtons);
 
-// Initialize button state on page load
 toggleButtons();

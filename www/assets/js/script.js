@@ -107,66 +107,62 @@ select.addEventListener('change', (event) => {
     tempSelect.remove();
 });
 
-let isRecording = false;
+let cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+    card.onmousemove = function(e){
+        const rect = card.getBoundingClientRect();
+        let x = e.pageX - rect.left;
+        let y = e.pageY - rect.top;
+        
+        card.style.setProperty('--x', x + 'px');
+        card.style.setProperty('--y', y + 'px');
+    }
+})
+
+let isRecording = false;  // Track recording state
+let isProcessing = false;  // Prevent spam clicks
+
 document.addEventListener('DOMContentLoaded', () => {
     const card = document.querySelector('.card');
-    const micButton = document.getElementById('microphone-btn');
+    const micButton = document.querySelector('.mic-wrapper');
     const messagesContainer = document.querySelector('.messages-container');
     const settings = document.querySelector('.settings');
     const dotAnimation = document.getElementById('dot-animation');
     const voiceAssistingOverlay = document.querySelector('.voice-assisting-overlay');
-    const capyMessage = document.querySelector('.capy-message');
-    
-    $(capyMessage).textillate({
-        loop: true,
-        minDisplayTime: 1000,
-        initialDelay: 0,
-        in: {
-            effect: 'fadeInUp',
-            delayScale: 1.5,
-            delay: 30,
-            sync: false,
-            shuffle: false
-        },
-        out: {
-            effect: 'fadeOutUp',
-            delayScale: 1.5,
-            delay: 30,
-            sync: false,
-            shuffle: false
-        }
-    });
 
     micButton.addEventListener('click', () => {
-        if (isRecording) return;
-        isRecording = true;
-        setTimeout(() => { isRecording = false; }, 500);
+        if (isProcessing) return;
 
-        card.classList.toggle('shrink');
-        const isHidden = messagesContainer.style.display === 'none';
+        isProcessing = true;
 
-        messagesContainer.style.display = isHidden ? 'block' : 'none';
-        settings.style.display = isHidden ? 'flex' : 'none';
-        voiceAssistingOverlay.classList.toggle('show');
-
+        if (isRecording) {
+            stopRecording();
+        } else {
+            startRecording();
+        }
         setTimeout(() => {
-            dotAnimation.classList.toggle('show');
-            const computedStyle = window.getComputedStyle(capyMessage);
-            const isMessageHidden = computedStyle.display === 'none';
-
-            if (isMessageHidden){
-                capyMessage.style.display = 'block';
-                setTimeout(() => {
-                    capyMessage.style.opacity = '1';
-                    $(capyMessage).textillate('start');
-                }, 10);
-            } else {
-                capyMessage.style.opacity = '0';
-                $(capyMessage).textillate('stop');
-                setTimeout(() => {
-                    capyMessage.style.display = 'none';
-                }, 500);
-            }
+            isProcessing = false;
         }, 500);
     });
+
+    function startRecording() {
+        isRecording = true;
+        card.classList.add('shrink');
+        micButton.classList.replace('mic-wrapper', 'mic-stop');
+        messagesContainer.style.display = 'none';
+        settings.style.display = 'none';
+        dotAnimation.classList.add('show');
+        voiceAssistingOverlay.classList.add('show');
+    }
+    
+    function stopRecording() {
+        isRecording = false;
+        card.classList.remove('shrink');
+        micButton.classList.replace('mic-stop', 'mic-wrapper');
+        messagesContainer.style.display = 'block';
+        settings.style.display = 'block';
+        dotAnimation.classList.remove('show');
+        voiceAssistingOverlay.classList.remove('show');
+    }
+    window.stopRecording = stopRecording;
 });

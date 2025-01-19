@@ -203,6 +203,12 @@ body.light-mode li::marker {
     bottom: 6.5px;
 }
 
+.mic-stop{
+  position: absolute;
+  right: 6.5px;
+  bottom: 6.5px;
+}
+
 .wrapper img{
     object-fit: contain;
     height: calc(100% + 4px);
@@ -609,9 +615,9 @@ body.light-mode li::marker {
 }
 
 .message-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 25%;
     overflow: hidden;
 }
 
@@ -636,7 +642,6 @@ body.light-mode li::marker {
 
 .user-message .message-content {
     background: var(--user-message-bg, #e8f5e9);
-    max-width: 85%;
 }
 
 .message-text {
@@ -751,8 +756,8 @@ body.light-mode li::marker {
   top: 0;
   transform: rotate(80deg); 
   left: 0;
-
 }
+
 
 .wave {
   position: absolute;
@@ -782,18 +787,18 @@ body.light-mode li::marker {
 }
 
 .dot-animation.show,
-.voice-assisting-overlay.show {
+.voice-assisting-overlay.show{
     opacity: 1;
     display: block;
 }
 
 .capy-message {
-    display: none;
+    visibility: visible;
     position: absolute;
     font-size: 25px;
     top: 50%;
     left: 25%;
     color: white;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s;
 }
