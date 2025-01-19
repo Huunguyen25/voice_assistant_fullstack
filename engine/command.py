@@ -30,8 +30,8 @@ def speak(text):
     pygame.mixer.music.load(sped_up_fp, "mp3")
     pygame.mixer.music.play()
 
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
+    # while pygame.mixer.music.get_busy():
+    #     pygame.time.Clock().tick(10)
 
 
 # Globals to control threads and recording
@@ -84,7 +84,7 @@ def recording():
 
     print("Calibrating ambient noise levels...")
     ambient_levels = []
-    for _ in range(7):  # Increased samples for better calibration
+    for _ in range(10):  # Increased samples for better calibration
         data = stream.read(CHUNK, exception_on_overflow=False)
         audio_data = np.frombuffer(data, dtype=np.int16)
         ambient_levels.append(calculate_amplitude(audio_data))
