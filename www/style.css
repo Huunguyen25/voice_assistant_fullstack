@@ -597,6 +597,7 @@ body.light-mode li::marker {
     flex-direction: column;
     gap: 20px;
     margin-bottom: 25px;
+    outline: none;
 }
 
 .message {
@@ -633,6 +634,8 @@ body.light-mode li::marker {
     padding: 12px;
     border-radius: 12px;
     position: relative;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .ai-message .message-content {
@@ -648,6 +651,7 @@ body.light-mode li::marker {
     margin-bottom: 4px;
     word-wrap: break-word;
     white-space: pre-wrap;
+    padding: 1px;
 }
 
 

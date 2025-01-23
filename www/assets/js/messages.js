@@ -17,19 +17,25 @@ function addMessage(text, isAI = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isAI ? 'ai-message' : 'user-message'}`;
 
+    const escapedText = text.replace(/&/g, '&amp;')
+                           .replace(/</g, '&lt;')
+                           .replace(/>/g, '&gt;')
+                           .replace(/"/g, '&quot;')
+                           .replace(/'/g, '&#039;');
+
     if (isAI) {
         messageDiv.innerHTML = `
             <div class="message-avatar">
                 <img src="assets/img/icon/chat-avatar.png" alt="AI">
             </div>
             <div class="message-content">
-                <div class="message-text">${text}</div>
+                <div class="message-text">${escapedText}</div>
             </div>
         `;
     } else {
         messageDiv.innerHTML = `
             <div class="message-content">
-                <div class="message-text">${text}</div>
+                <div class="message-text">${escapedText}</div>
             </div>
         `;
     }
