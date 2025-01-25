@@ -39,7 +39,9 @@ $(document).ready(function() {
             resetToDefaultMessage(); // Reset message on mic stop
             eel.speak("How can I help?")();
             setTimeout(() => {
-                eel.start_command()();
+                // revert comment after testing
+                // eel.start_command()();
+                eel.testing_open_youtube()();
             }, 1000);
             setTimeout(() => {
                 eel.playActivationSound();
@@ -47,7 +49,9 @@ $(document).ready(function() {
                 capyMessage.textillate('in');
             }, 0);
         } else if (micButton.hasClass('mic-wrapper')) {
-            eel.stop_command()();
+            // revert comment after testing
+            // eel.stop_command()();
+            eel.close_test()();
             eel.playDeactivationSound();
             capyMessage.textillate('out');
             setTimeout(() => {

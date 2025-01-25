@@ -38,9 +38,12 @@ def speak(text):
 recording_thread = None
 recording_active = threading.Event()
 
+query_result = queue.Queue()
+
 
 def recording():
     global recording_active
+    global query_result
 
     FORMAT, CHANNELS, RATE = pyaudio.paInt16, 1, 16000
     CHUNK = 1024  # Reduced for faster response
@@ -156,7 +159,7 @@ def recording():
                 print(f"Transcription: {transcription}")
                 if transcription != "":
                     eel.DisplayMessage(transcription)
-                return transcription
+                    query_result.put(transcription)
 
     stream.stop_stream()
     stream.close()
@@ -190,3 +193,25 @@ def stop_command():
     if recording_thread:
         recording_thread.join()
     print("Recording stopped.")
+
+
+@eel.expose
+def allCommand():
+    global query_result
+
+    start_command()
+    query = query_result.get()
+    if "open" in query:
+        openCommand(query)
+    else:
+        print("No specific command")
+
+
+@eel.expose
+def testing_open_youtube():
+    eel.DisplayMessage("open Youtube")
+    return "open Youtube"
+
+
+def close_test():
+    eel.showHood()
