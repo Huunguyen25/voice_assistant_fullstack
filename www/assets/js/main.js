@@ -41,7 +41,7 @@ $(document).ready(function() {
             setTimeout(() => {
                 // revert comment after testing
                 // eel.start_command()();
-                eel.testing_open_youtube()();
+                eel.all_command()();
             }, 1000);
             setTimeout(() => {
                 eel.playActivationSound();
@@ -51,7 +51,7 @@ $(document).ready(function() {
         } else if (micButton.hasClass('mic-wrapper')) {
             // revert comment after testing
             // eel.stop_command()();
-            eel.close_test()();
+            eel.stop_recording()();
             eel.playDeactivationSound();
             capyMessage.textillate('out');
             setTimeout(() => {

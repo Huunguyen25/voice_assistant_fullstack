@@ -8,6 +8,7 @@ import pyaudio
 import numpy as np
 import threading
 import time
+import queue
 
 
 @eel.expose
@@ -164,7 +165,7 @@ def recording():
     stream.stop_stream()
     stream.close()
     p.terminate()
-    return ""
+    return
 
 
 @eel.expose
@@ -196,7 +197,7 @@ def stop_command():
 
 
 @eel.expose
-def allCommand():
+def all_command():
     global query_result
 
     start_command()
@@ -205,13 +206,3 @@ def allCommand():
         openCommand(query)
     else:
         print("No specific command")
-
-
-@eel.expose
-def testing_open_youtube():
-    eel.DisplayMessage("open Youtube")
-    return "open Youtube"
-
-
-def close_test():
-    eel.showHood()
