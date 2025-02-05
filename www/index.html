@@ -34,7 +34,6 @@
                     <div class="message-content">
                         <div class="message-text">Hello! How can I help you today?</div>
                     </div> -->
-
                 </div>
                 <div class="message user-message">
 
@@ -79,11 +78,11 @@
                     <button name="preferences" id="preferences" class="settings-option-button">
                         <label id="preferences-text">Preferences</label>
                     </button>
-                    <button name="system-settings" id="system-settings" class="settings-option-button">
-                        <label id="system-settings">System</label>
+                    <button name="system-command" id="system-command" class="settings-option-button">
+                        <label id="system-command-text">System</label>
                     </button>
-                    <button name="web-settings" id="web-settings" class="settings-option-button">
-                        <label id="web-settings">Web</label>
+                    <button name="web-command" id="web-command" class="settings-option-button">
+                        <label id="web-command-text">Web</label>
                     </button>
                 </div>
                 <div class="menu-container">
@@ -99,7 +98,7 @@
                         </select>
                     </div>
                     <!-- System Settings Section -->
-                    <div id="system-settings-section" class="settings-section">
+                    <div id="system-command-section" class="settings-section">
                         <label id="system-app-text">Add Your New System App</label>
                         <div class="non-draggable-setting-container" id="system-app-path-container">
                             <div class="input-row">
@@ -109,13 +108,18 @@
                                 <img src="assets/img/add_icon.png">
                             </button>
                             </div>
+                            <div class="input-labels">
+                                <span>ID</span>
+                                <span class="keywords-label">Keywords</span>
+                                <span class="command-label">Commands</span>
+                            </div>
                             <div id="system-apps-list" class="apps-list"></div>
                         </div>
                     </div>
                 
                     <!-- Web Settings Section -->
-                    <div id="web-settings-section" class="settings-section">
-                        <label id="web-app-text">Add Your New Web App</label>
+                    <div id="web-command-section" class="settings-section">
+                        <label id="web-command-text">Add Your New Web App</label>
                         <div class="non-draggable-setting-container" id="web-app-path-container">
                             <div class="input-row">
                             <textarea class="setting-file-input keywords-for-url" id="keywords-for-url" placeholder="Keywords"></textarea>
@@ -123,6 +127,11 @@
                             <button class="add-url-button" id="add-url-button">
                                 <img src="assets/img/add_icon.png">
                             </button>
+                            </div>
+                            <div class="input-labels">
+                                <span>ID</span>
+                                <span class="keywords-label">Keywords</span>
+                                <span class="url-label">Urls</span>
                             </div>
                             <div id="web-apps-list" class="apps-list"></div>
                         </div>

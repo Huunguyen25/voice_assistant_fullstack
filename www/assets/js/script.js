@@ -119,9 +119,6 @@ cards.forEach(card => {
     }
 })
 
-let isRecording = false;  // Track recording state
-let isProcessing = false;  // Prevent spam clicks
-
 document.addEventListener('DOMContentLoaded', () => {
     const card = document.querySelector('.card');
     const micButton = document.querySelector('.mic-wrapper');
@@ -131,38 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const voiceAssistingOverlay = document.querySelector('.voice-assisting-overlay');
 
     micButton.addEventListener('click', () => {
-        if (isProcessing) return;
-
-        isProcessing = true;
-
-        if (isRecording) {
-            stopRecording();
-        } else {
-            startRecording();
-        }
-        setTimeout(() => {
-            isProcessing = false;
-        }, 500);
+        startRecording();
     });
 
     function startRecording() {
-        isRecording = true;
         card.classList.add('shrink');
-        micButton.classList.replace('mic-wrapper', 'mic-stop');
         messagesContainer.style.display = 'none';
         settings.style.display = 'none';
         dotAnimation.classList.add('show');
         voiceAssistingOverlay.classList.add('show');
     }
-    
-    function stopRecording() {
-        isRecording = false;
-        card.classList.remove('shrink');
-        micButton.classList.replace('mic-stop', 'mic-wrapper');
-        messagesContainer.style.display = 'block';
-        settings.style.display = 'block';
-        dotAnimation.classList.remove('show');
-        voiceAssistingOverlay.classList.remove('show');
-    }
-    window.stopRecording = stopRecording;
 });

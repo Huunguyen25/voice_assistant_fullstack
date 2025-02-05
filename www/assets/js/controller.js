@@ -1,8 +1,8 @@
 $(document).ready(function () {
     const capyMessage = $(".capy-message");
-    eel.expose(DisplayMessage)
+    eel.expose(display_message)
 
-    function DisplayMessage(message) {
+    function display_message(message) {
         // Reset to the default message each time before displaying a new one
         $(".capy-message .texts .current").text(message || "Hi, I'm Capy. How can I help you today?");
         $(".capy-message > span").attr('aria-label', message || "Hi, I'm Capy. How can I help you today?");
@@ -40,12 +40,14 @@ $(document).ready(function () {
 
     eel.expose(showHood)
     function showHood() {
-        if (typeof window.stopRecording === 'function') {
-            window.stopRecording();
-        }
         $(".capy-message").textillate('out');
         setTimeout(() => {
             $(".capy-message").prop('hidden', true);
         }, 1000);
+        $(".card").removeClass('shrink');
+        $(".messages-container").css('display', 'block');
+        $(".settings").css('display', 'flex');
+        $("#dot-animation").removeClass('show');
+        $(".voice-assisting-overlay").removeClass('show');
     }
 });

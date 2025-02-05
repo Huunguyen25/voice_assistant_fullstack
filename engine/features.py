@@ -1,6 +1,8 @@
 from playsound import playsound
 import eel
-from engine.config import ASSISTANT_NAME
+import os
+from engine.command import *
+import pywhatkit as kit
 
 
 @eel.expose
@@ -15,13 +17,16 @@ def playDeactivationSound():
     playsound(deactivationSound)
 
 
-@eel.expose
-def openCommand(query):
-    query = query.replace("ASSISTANT_NAME", "").strip()
-    query = query.replace("open", "").strip()
-    query = query.lower()
+def open_command(query):
+    query = query.replace("open ", "").lower()
     if query != "":
         speak("Opening " + query)
-        os.system("open " + query)
+        os.system("open -a " + f"'{query}'")
     else:
         speak("Not found")
+
+
+def play_youtube(query):
+    if query != None:
+        speak("Playing " + query)
+        kit.playonyt(query)

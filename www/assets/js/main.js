@@ -32,33 +32,12 @@ $(document).ready(function() {
         capyMessage.find('span[aria-label]').remove();
         initTextillate();
     }
-
-    $(document).on('click', '.mic-wrapper, .mic-stop', function() {
-        const micButton = $(this);
-        if (micButton.hasClass('mic-stop')) {
-            resetToDefaultMessage(); // Reset message on mic stop
-            eel.speak("How can I help?")();
-            setTimeout(() => {
-                // revert comment after testing
-                // eel.start_command()();
-                eel.all_command()();
-            }, 1000);
-            setTimeout(() => {
-                eel.playActivationSound();
-                capyMessage.prop('hidden', false);
-                capyMessage.textillate('in');
-            }, 0);
-        } else if (micButton.hasClass('mic-wrapper')) {
-            // revert comment after testing
-            // eel.stop_command()();
-            eel.stop_recording()();
-            eel.playDeactivationSound();
-            capyMessage.textillate('out');
-            setTimeout(() => {
-                capyMessage.prop('hidden', true);
-                resetToDefaultMessage(); // Reset message on mic start
-            }, 1500);
-        }
+    $("#microphone-btn").click(function() {
+        resetToDefaultMessage();
+        eel.playActivationSound()();
+        eel.all_command()();
+        capyMessage.prop('hidden', false);
+        capyMessage.textillate('in');
     });
 });
 

@@ -1,2 +1,1 @@
 ASSISTANT_NAME = "Capy"
-

@@ -498,8 +498,8 @@ body.light-mode li::marker {
 }
 
 #preferences-section img,
-#system-settings-section img, 
-#web-settings-section img {
+#system-command-section img, 
+#web-command-section img {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -512,6 +512,31 @@ body.light-mode li::marker {
     flex-direction: column;
     gap: 10px;
     width: 100%;
+}
+
+.keywords-label{
+    position: ABSOLUTE;
+    right: 65%;
+}
+
+.command-label{
+    position: ABSOLUTE;
+    right: 34%;
+}
+.url-label{
+    position: ABSOLUTE;
+    right: 40.2%;
+
+}
+
+.keyword-identifier{
+  position: relative;
+  right: 25%;
+}
+
+.path-url-identifier{
+  position: relative;
+  right: 17%;
 }
 
 .non-draggable-setting-container .input-row {
@@ -531,7 +556,7 @@ body.light-mode li::marker {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 150px; /* Limit height */
+    max-height: 115px; /* Limit height */
     overflow-y: auto; /* Make scrollable */
     width: 100%;
     margin-top: -5px;
@@ -545,6 +570,18 @@ body.light-mode li::marker {
 .apps-list::-webkit-scrollbar-thumb {
     background: #464646;
     border-radius: 4px;
+}
+
+.input-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 9px;
+}
+
+.input-labels span {
+    color: #888;
+    font-size: 12px;
 }
 
 .app-entry {
@@ -618,15 +655,13 @@ body.light-mode li::marker {
 .message-avatar {
     width: 20px;
     height: 20px;
-    border-radius: 25%;
-    overflow: hidden;
 }
 
 .message-avatar img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     filter: brightness(1.0);
+    vertical-align: top;
 }
 
 .message-content {
