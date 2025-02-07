@@ -79,13 +79,6 @@ body.light-mode li::marker {
   color: #666;
 }
 
-
-
-
-
-
-
-
 .wrapper{
     display: flex;
     justify-content: center;
@@ -436,6 +429,11 @@ body.light-mode li::marker {
     padding-right: 18px;
     resize: horizontal;
     outline: none;
+}
+
+.settings-section select option {
+    background-color: #252525;
+    color: white;
 }
 
 .settings-section label {

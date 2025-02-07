@@ -10,6 +10,7 @@ import re
 @eel.expose
 def speak(text):
     tempo = 1.2
+    volume_reduction_db = -17  # Reduce volume by 10 dB
     mp3_fp = BytesIO()
     tts = gTTS(text=str(text), lang="en", slow=False)
     tts.write_to_fp(mp3_fp)
@@ -17,6 +18,7 @@ def speak(text):
     mp3_fp.seek(0)
     audio = AudioSegment.from_file(mp3_fp)
     audio = audio.speedup(tempo)
+    audio = audio + volume_reduction_db  # Apply volume reduction
 
     sped_up_fp = BytesIO()
     audio.export(sped_up_fp, format="mp3")
@@ -55,18 +57,20 @@ def all_command():
     query = start_recording()
     query = query.lower()
     print(query)
-    if "open" in query:
-        query = query.replace("open ", "")
-        from engine.features import open_command
-
-        open_command(query)
-    elif "play" in query:
-        query = extract_with_regex(query)
-        from engine.features import play_youtube
-
-        play_youtube(query)
-    else:
-        print("I don't understand")
+    try:
+        if "open" in query:
+            query = query.replace("open ", "")
+            from engine.features import open_command
+            open_command(query)
+        elif "play" in query:
+            query = extract_with_regex(query)
+            from engine.features import play_youtube
+            play_youtube(query)
+        else:
+            print("I don't understand")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        eel.showHood()
     eel.showHood()
 
 
