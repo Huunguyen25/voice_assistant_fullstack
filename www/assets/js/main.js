@@ -33,8 +33,10 @@ $(document).ready(function() {
         initTextillate();
     }
     $("#microphone-btn").click(function() {
+        const $micBtn = $(this);
         resetToDefaultMessage();
         eel.playActivationSound()();
+        $micBtn.prop('disabled', true);
         eel.all_command()();
         capyMessage.prop('hidden', false);
         capyMessage.textillate('in');

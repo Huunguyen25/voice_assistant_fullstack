@@ -55,11 +55,9 @@ def start_recording():
 @eel.expose
 def all_command():
     query = start_recording()
-    query = query.lower()
     print(query)
     try:
         if "open" in query:
-            query = query.replace("open ", "")
             from engine.features import open_command
             open_command(query)
         elif "play" in query:
