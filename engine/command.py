@@ -4,29 +4,31 @@ from io import BytesIO
 from pydub import AudioSegment
 import pygame
 import speech_recognition as sr
-import re
+from engine.helper import extract_with_regex
+import pyautogui as autoui
 
 
 @eel.expose
 def speak(text):
     tempo = 1.2
-    volume_reduction_db = -17  # Reduce volume by 10 dB
-    mp3_fp = BytesIO()
+    volume_reduction_db = -10
+
     tts = gTTS(text=str(text), lang="en", slow=False)
-    tts.write_to_fp(mp3_fp)
+    wav_fp = BytesIO()
+    tts.write_to_fp(wav_fp)
 
-    mp3_fp.seek(0)
-    audio = AudioSegment.from_file(mp3_fp)
-    audio = audio.speedup(tempo)
-    audio = audio + volume_reduction_db  # Apply volume reduction
+    wav_fp.seek(0)
+    audio = AudioSegment.from_file(wav_fp, format="mp3").set_frame_rate(44100)
+    audio = audio.speedup(playback_speed=tempo)
+    audio = audio + volume_reduction_db
 
-    sped_up_fp = BytesIO()
-    audio.export(sped_up_fp, format="mp3")
-    sped_up_fp.seek(0)
+    final_fp = BytesIO()
+    audio.export(final_fp, format="wav")
+    final_fp.seek(0)
 
     pygame.init()
     pygame.mixer.init()
-    pygame.mixer.music.load(sped_up_fp, "mp3")
+    pygame.mixer.music.load(final_fp, "wav")
     pygame.mixer.music.play()
 
     while pygame.mixer.music.get_busy():
@@ -72,7 +74,3 @@ def all_command():
     eel.showHood()
 
 
-def extract_with_regex(query):
-    pattern = r"play\s+(.*?)\s+on\s+youtube"
-    match = re.search(pattern, query, re.IGNORECASE)
-    return match.group(1) if match else None

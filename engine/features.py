@@ -1,12 +1,17 @@
+import struct
 import webbrowser
 from playsound import playsound
 import eel
 import os
+
+import pyaudio
 from engine.command import *
 import pywhatkit as kit
 import platform
 import subprocess
 import sqlite3
+import pvporcupine
+import time
 
 conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
@@ -18,7 +23,6 @@ command_mapping = {
     'file explorer': 'explorer',
     'explorer': 'explorer',
 }
-
 
 @eel.expose
 def playActivationSound():
@@ -43,7 +47,6 @@ def open_command(query):
             if len(results) != 0:
                 speak("Opening " + query)
                 platform_open(results[0][0])
-                
             # if not found in sys_command table, search in web_command table
             elif len(results) == 0:
                 cursor.execute('SELECT url FROM web_command WHERE name IN (?)', (app_name,))
@@ -81,3 +84,44 @@ def play_youtube(query):
     if query != None:
         speak("Playing " + query)
         kit.playonyt(query)
+        
+        
+        
+def hotword():
+    porcupine = None
+    paud = None
+    audio_stream = None
+    try:
+        # pre-trained keywords    
+        porcupine = pvporcupine.create(keywords=["hey google"])
+        paud = pyaudio.PyAudio()
+        audio_stream = paud.open(rate=porcupine.sample_rate,
+                                 channels=1,
+                                 format=pyaudio.paInt16,
+                                 input=True,
+                                 frames_per_buffer=porcupine.frame_length)
+        while True:
+            keyword_audio = audio_stream.read(porcupine.frame_length,
+                                              exception_on_overflow=False)
+            keyword = struct.unpack_from("h" * porcupine.frame_length, keyword_audio)
+            keyword_index = porcupine.process(keyword)
+
+            # checking if any keyword detected
+            if keyword_index >= 0:
+                print("Hotword detected!")
+                import pyautogui as autogui
+                autogui.keyDown("win")
+                autogui.press("j")
+                time.sleep(2)
+                autogui.keyUp("win")
+            time.sleep(0.01)
+                
+    except Exception as e:
+        print("An error occurred:", e)
+    finally:
+        if porcupine is not None:
+            porcupine.delete()
+        if audio_stream is not None:
+            audio_stream.close()
+        if paud is not None:
+            paud.terminate()

@@ -1,4 +1,7 @@
-// for dynamic resizing of textarea
+/**
+ * DOM SCRIPTS
+ */
+
 const textarea = document.querySelector(".chatbox");
 const card = document.querySelector(".card");
 textarea.addEventListener("input", e => {
@@ -116,26 +119,5 @@ cards.forEach(card => {
         
         card.style.setProperty('--x', x + 'px');
         card.style.setProperty('--y', y + 'px');
-    }
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-    const card = document.querySelector('.card');
-    const micButton = document.querySelector('.mic-wrapper');
-    const messagesContainer = document.querySelector('.messages-container');
-    const settings = document.querySelector('.settings');
-    const dotAnimation = document.getElementById('dot-animation');
-    const voiceAssistingOverlay = document.querySelector('.voice-assisting-overlay');
-
-    micButton.addEventListener('click', () => {
-        startRecording();
-    });
-
-    function startRecording() {
-        card.classList.add('shrink');
-        messagesContainer.style.display = 'none';
-        settings.style.display = 'none';
-        dotAnimation.classList.add('show');
-        voiceAssistingOverlay.classList.add('show');
     }
 });

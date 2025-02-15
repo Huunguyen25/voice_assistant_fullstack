@@ -3,8 +3,8 @@ $(document).ready(function () {
     eel.expose(display_message)
 
     function display_message(message) {
-        $(".capy-message .texts .current").text(message || "Hi, I'm Capy. How can I help you today?");
-        $(".capy-message > span").attr('aria-label', message || "Hi, I'm Capy. How can I help you today?");
+        $(".capy-message .texts .current").text(message || "How can I help you today?");
+        $(".capy-message > span").attr('aria-label', message || "How can I help you today?");
         
         capyMessage.removeData('textillate');
         capyMessage.find('span[aria-label]').remove();
@@ -47,6 +47,5 @@ $(document).ready(function () {
         $(".settings").css('display', 'flex');
         $("#dot-animation").removeClass('show');
         $(".voice-assisting-overlay").removeClass('show');
-
     }
 });
