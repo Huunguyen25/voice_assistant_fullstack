@@ -9,6 +9,11 @@ engine/*.pyc
 engine/*.pyo
 engine/*.pyd
 
+__pycache__
+__pycache__/*.pyc
+__pycache__/*.pyo
+__pycache__/*.pyd
+
 #testing
 testing/
 

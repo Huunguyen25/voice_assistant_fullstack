@@ -61,10 +61,12 @@ def all_command():
     try:
         if "open" in query:
             from engine.features import open_command
+
             open_command(query)
         elif "play" in query:
             query = extract_with_regex(query)
             from engine.features import play_youtube
+
             play_youtube(query)
         else:
             print("I don't understand")
@@ -72,5 +74,3 @@ def all_command():
         print(f"An error occurred: {e}")
         eel.showHood()
     eel.showHood()
-
-

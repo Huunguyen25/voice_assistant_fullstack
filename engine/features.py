@@ -13,16 +13,17 @@ import sqlite3
 import pvporcupine
 import time
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
 
 command_mapping = {
-    'calculator': 'calc',
-    'notepad': 'notepad',
-    'paint': 'mspaint',
-    'file explorer': 'explorer',
-    'explorer': 'explorer',
+    "calculator": "calc",
+    "notepad": "notepad",
+    "paint": "mspaint",
+    "file explorer": "explorer",
+    "explorer": "explorer",
 }
+
 
 @eel.expose
 def playActivationSound():
@@ -42,16 +43,20 @@ def open_command(query):
     if app_name != "":
         try:
             # first search in sys_command table
-            cursor.execute('SELECT path FROM sys_command WHERE name IN (?)', (app_name,))
+            cursor.execute(
+                "SELECT path FROM sys_command WHERE name IN (?)", (app_name,)
+            )
             results = cursor.fetchall()
             if len(results) != 0:
                 speak("Opening " + query)
                 platform_open(results[0][0])
             # if not found in sys_command table, search in web_command table
             elif len(results) == 0:
-                cursor.execute('SELECT url FROM web_command WHERE name IN (?)', (app_name,))
+                cursor.execute(
+                    "SELECT url FROM web_command WHERE name IN (?)", (app_name,)
+                )
                 results = cursor.fetchall()
-                
+
                 # if found in web_command table, open the url in browser
                 if len(results) != 0:
                     speak("Opening " + query)
@@ -67,42 +72,46 @@ def open_command(query):
             speak("Something went wrong")
             eel.showHood()
     eel.showHood()
-    
+
+
 def platform_open(query):
     if query != "":
-        if platform.system() == 'Darwin':
+        if platform.system() == "Darwin":
             subprocess.call((f'open -a "{query}"'))
-        elif platform.system() == 'Windows':
+        elif platform.system() == "Windows":
             try:
                 query = query.lower().strip()
                 mapped_command = command_mapping.get(query, query)
-                os.system(f'start {mapped_command}')
+                os.system(f"start {mapped_command}")
             except:
-                os.system(f'start {query}')
+                os.system(f"start {query}")
+
 
 def play_youtube(query):
     if query != None:
         speak("Playing " + query)
         kit.playonyt(query)
-        
-        
-        
+
+
 def hotword():
     porcupine = None
     paud = None
     audio_stream = None
     try:
-        # pre-trained keywords    
+        # pre-trained keywords
         porcupine = pvporcupine.create(keywords=["hey google"])
         paud = pyaudio.PyAudio()
-        audio_stream = paud.open(rate=porcupine.sample_rate,
-                                 channels=1,
-                                 format=pyaudio.paInt16,
-                                 input=True,
-                                 frames_per_buffer=porcupine.frame_length)
+        audio_stream = paud.open(
+            rate=porcupine.sample_rate,
+            channels=1,
+            format=pyaudio.paInt16,
+            input=True,
+            frames_per_buffer=porcupine.frame_length,
+        )
         while True:
-            keyword_audio = audio_stream.read(porcupine.frame_length,
-                                              exception_on_overflow=False)
+            keyword_audio = audio_stream.read(
+                porcupine.frame_length, exception_on_overflow=False
+            )
             keyword = struct.unpack_from("h" * porcupine.frame_length, keyword_audio)
             keyword_index = porcupine.process(keyword)
 
@@ -110,12 +119,13 @@ def hotword():
             if keyword_index >= 0:
                 print("Hotword detected!")
                 import pyautogui as autogui
+
                 autogui.keyDown("win")
                 autogui.press("j")
                 time.sleep(2)
                 autogui.keyUp("win")
             time.sleep(0.01)
-                
+
     except Exception as e:
         print("An error occurred:", e)
     finally:
