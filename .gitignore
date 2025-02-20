@@ -9,10 +9,10 @@ engine/*.pyc
 engine/*.pyo
 engine/*.pyd
 
-__pycache__
-__pycache__/*.pyc
-__pycache__/*.pyo
-__pycache__/*.pyd
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
 
 #testing
 testing/
