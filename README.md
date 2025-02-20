@@ -13,5 +13,6 @@ pyinstaller build.spec
 
 <dt>Hotword to wake assistant is "Hey Google"</dt>
 <dt>Before using voice assistant import your Open Router api key into the app setting for AI to work</dt>
+
 [Open Router](https://openrouter.ai/settings/keys)
 
