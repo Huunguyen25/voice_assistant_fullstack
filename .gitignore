@@ -13,6 +13,7 @@ engine/*.pyd
 __pycache__/
 *.py[cod]
 *$py.class
+__pycache__/main.cpython-313.pyc
 
 #testing
 testing/

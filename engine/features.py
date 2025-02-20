@@ -82,9 +82,12 @@ def platform_open(query):
             try:
                 query = query.lower().strip()
                 mapped_command = command_mapping.get(query, query)
-                os.system(f"start {mapped_command}")
+                result = os.system(f"start {mapped_command}")
+                if result != 0:
+                    eel.showHood()
             except:
-                os.system(f"start {query}")
+                speak("Nothing found")
+                eel.showHood()
 
 
 def play_youtube(query):

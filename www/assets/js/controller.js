@@ -1,10 +1,12 @@
 $(document).ready(function () {
     const capyMessage = $(".capy-message");
+    const DEFAULT_MESSAGE = "How can I help you today?";
+
     eel.expose(display_message)
 
     function display_message(message) {
-        $(".capy-message .texts .current").text(message || "How can I help you today?");
-        $(".capy-message > span").attr('aria-label', message || "How can I help you today?");
+        $(".capy-message .texts .current").text(message || DEFAULT_MESSAGE);
+        $(".capy-message > span").attr('aria-label', message || DEFAULT_MESSAGE);
         
         capyMessage.removeData('textillate');
         capyMessage.find('span[aria-label]').remove();
@@ -47,5 +49,6 @@ $(document).ready(function () {
         $(".settings").css('display', 'flex');
         $("#dot-animation").removeClass('show');
         $(".voice-assisting-overlay").removeClass('show');
+        resetToDefaultMessage();
     }
 });

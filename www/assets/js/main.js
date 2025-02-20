@@ -34,6 +34,14 @@ $(document).ready(function() {
         micBtn: $("#microphone-btn")
     };
 
+    function resetToDefaultMessage() {
+        $(".capy-message .texts .current").text(DEFAULT_MESSAGE);
+        $(".capy-message > span").attr('aria-label', DEFAULT_MESSAGE);
+        capyMessage.removeData('textillate');
+        capyMessage.find('span[aria-label]').remove();
+        initTextillate();
+    }
+
     function recording_mode() {
         resetToDefaultMessage();
         eel.playActivationSound()();
@@ -52,14 +60,6 @@ $(document).ready(function() {
         elements.settings.hide();
         elements.dotAnimation.addClass('show');
         elements.voiceAssistingOverlay.addClass('show');
-    }
-
-    function resetToDefaultMessage() {
-        $(".capy-message .texts .current").text(DEFAULT_MESSAGE);
-        $(".capy-message > span").attr('aria-label', DEFAULT_MESSAGE);
-        capyMessage.removeData('textillate');
-        capyMessage.find('span[aria-label]').remove();
-        initTextillate();
     }
 
     $("#microphone-btn").click(function() {

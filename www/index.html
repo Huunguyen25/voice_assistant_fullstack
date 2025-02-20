@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.compat.css"/>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Load eel.js first -->
+    <script type="text/javascript" src="/eel.js"></script>
+    
+    <!-- jQuery and other dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="voice-assisting-overlay-container">
@@ -84,6 +90,8 @@
                     <button name="web-command" id="web-command" class="settings-option-button">
                         <label id="web-command-text">Web</label>
                     </button>
+                    <button name="API-setting" id="API-setting" class="settings-option-button">
+                        <label id="API-setting-text">API</label>    
                 </div>
                 <div class="menu-container">
                     <!-- Preferences Section -->
@@ -102,8 +110,8 @@
                         <label id="system-app-text">Add Your New System App</label>
                         <div class="non-draggable-setting-container" id="system-app-path-container">
                             <div class="input-row">
-                            <textarea class="setting-file-input keywords-for-app" id="files-path-inputs" placeholder="Keywords"></textarea>
-                            <textarea class="setting-file-input system-app-path" id="system-app-path" placeholder="App Path"></textarea>
+                            <textarea class="setting-file-input keywords-for-app" id="files-path-inputs" placeholder="Keywords" required></textarea>
+                            <textarea class="setting-file-input system-app-path" id="system-app-path" placeholder="App Path" required></textarea>
                             <button class="add-path-button" id="add-path-button">
                                 <img src="assets/img/add_icon.png">
                             </button>
@@ -116,14 +124,13 @@
                             <div id="system-apps-list" class="apps-list"></div>
                         </div>
                     </div>
-                
                     <!-- Web Settings Section -->
                     <div id="web-command-section" class="settings-section">
                         <label id="web-command-text">Add Your New Web App</label>
                         <div class="non-draggable-setting-container" id="web-app-path-container">
                             <div class="input-row">
-                            <textarea class="setting-file-input keywords-for-url" id="keywords-for-url" placeholder="Keywords"></textarea>
-                            <textarea class="setting-file-input url-path" id="url-path" placeholder="URL Path"></textarea>
+                            <textarea class="setting-file-input keywords-for-url" id="keywords-for-url" placeholder="Keywords" required></textarea>
+                            <textarea class="setting-file-input url-path" id="url-path" placeholder="URL Path" required></textarea>
                             <button class="add-url-button" id="add-url-button">
                                 <img src="assets/img/add_icon.png">
                             </button>
@@ -136,11 +143,17 @@
                             <div id="web-apps-list" class="apps-list"></div>
                         </div>
                     </div>
+                    <!-- API Settings Section -->
+                    <div id="API-setting-section" class="settings-section">
+                        <label id="api-text">Open Router API</label>
+                        <textarea class="setting-file-input api-key" id="api-key" placeholder="Enter your API key"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- textillate -->
+    
+    <!-- jQuery and other dependencies -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
@@ -151,8 +164,5 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/messages.js"></script>
     <script src="assets/js/settings-container.js"></script>
-
-    <!-- eel -->
-    <script src="eel.js"></script>
-    
 </body>
+</html>

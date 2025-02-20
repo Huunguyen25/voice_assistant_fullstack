@@ -839,3 +839,12 @@ body.light-mode li::marker {
     opacity: 1;
     transition: opacity 0.5s;
 }
+
+#API-setting-section textarea.api-key {
+    width: 100%;
+}
+
+#api-text {
+    display: flex;
+    align-items: center;
+}

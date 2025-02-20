@@ -1,3 +1,7 @@
+import sqlite3
+import eel
+
+
 def create_tables(conn):
     cursor = conn.cursor()
 
@@ -8,6 +12,57 @@ def create_tables(conn):
     # Create web_command table
     query = "CREATE TABLE IF NOT EXISTS web_command(id INTEGER PRIMARY KEY, name VARCHAR(100), url VARCHAR(1000))"
     cursor.execute(query)
+    
+    query = "CREATE TABLE IF NOT EXISTS api_key(id INTEGER PRIMARY KEY, name VARCHAR(100), api VARCHAR(1000))"
+    cursor.execute(query)
+    
+    conn.commit()
+    conn.close()
+
+@eel.expose
+def add_sys_command(name, path):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = "INSERT INTO sys_command VALUES (null, ?, ?)"
+    cursor.execute(query, (name, path))
+    conn.commit()
+    conn.close()
+    
+@eel.expose
+def add_web_command(name, url):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = "INSERT INTO web_command VALUES (null, ?, ?)"
+    cursor.execute(query, (name, url))
+    conn.commit()
+    conn.close()
+    
+@eel.expose
+def add_api_key(name, api):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = "INSERT INTO api_key VALUES (null, ?, ?)"
+    cursor.execute(query, (name, api))
+    conn.commit()
+    conn.close()
+    
+@eel.expose
+def delete_sys_command(name):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = "DELETE FROM sys_command WHERE name = ?"
+    cursor.execute(query, (name,))
+    conn.commit()
+    conn.close()
+
+@eel.expose
+def delete_web_command(name):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = "DELETE FROM web_command WHERE name = ?"
+    cursor.execute(query, (name,))
+    conn.commit()
+    conn.close()
 
 
 # query = "INSERT INTO sys_command VALUES (null, 'spotify', 'C:\\Users\\Skepzie\\AppData\\Roaming\\Spotify\\Spotify.exe')"
@@ -20,7 +75,6 @@ def create_tables(conn):
 
 # query = "DROP TABLE IF EXISTS web_command"
 # cursor.execute(query)
-
 
 # query = "INSERT INTO web_command VALUES (null,'grammarly','https://grammarly.com/')"
 # query = "INSERT INTO web_command VALUES (null,'icollege','https://icollege.gsu.edu/')"
