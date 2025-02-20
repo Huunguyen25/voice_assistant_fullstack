@@ -9,9 +9,9 @@ pip install -r requirements.txt
 ```bash 
 pyinstaller build.spec
 ```
->**Note:**install pyinstaller using pip first
+>**Note:** install pyinstaller using pip first
 
 <dt>Hotword to wake assistant is "Hey Google"</dt>
 <dt>Before using voice assistant import your Open Router api key into the app setting for AI to work</dt>
-https://openrouter.ai/settings/keys
+[Open Router](https://openrouter.ai/settings/keys)
 
