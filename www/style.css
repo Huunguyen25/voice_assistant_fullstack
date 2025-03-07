@@ -472,7 +472,7 @@ body.light-mode li::marker {
     vertical-align: middle;
 }
 
-.add-path-button, .add-url-button {
+.add-path-button, .add-url-button, .add-api-button {
     background-color: #232323;
     color: white;
     border: none;
@@ -489,7 +489,7 @@ body.light-mode li::marker {
 
 }
 
-.add-path-button:hover, .add-url-button:hover {
+.add-path-button:hover, .add-url-button:hover, .add-api-button:hover {
     border-radius: 50%;
     background-color: #444;
     box-shadow: 0 0 6px 0 rgba(138, 138, 138, 0.8);
@@ -497,7 +497,8 @@ body.light-mode li::marker {
 
 #preferences-section img,
 #system-command-section img, 
-#web-command-section img {
+#web-command-section img,
+#API-setting-section img {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -545,7 +546,7 @@ body.light-mode li::marker {
     width: 100%; /* Ensure input row spans full width */
 }
 
-.non-draggable-setting-container .input-row textarea,
+.non-draggable-setting-container .input-row input,
 .non-draggable-setting-container .input-row button {
     margin: 0; /* Remove any default margins */
 }
@@ -617,11 +618,11 @@ body.light-mode li::marker {
 
 /* testing purposes */
 .messages-container {
-    height: calc(100vh - 70px); /* Adjust based on your input area height */
+    height: 95%; /* Adjust based on your input area height */
     overflow-y: auto;
     margin-top: 20px;
     scroll-behavior: smooth;
-    width: 600px;
+    width: 800px;
     z-index: 1;
     position: absolute;
     top: 0px;
@@ -638,7 +639,6 @@ body.light-mode li::marker {
 .message {
     display: flex;
     gap: 12px;
-    max-width: 80%;
 }
 
 .ai-message {
@@ -648,18 +648,19 @@ body.light-mode li::marker {
 .user-message {
     align-self: flex-end;
     flex-direction: row-reverse;
+    max-width: 80%;`
 }
 
 .message-avatar {
-    width: 20px;
-    height: 20px;
+  width: 60px;
+  height: 100%;
 }
 
 .message-avatar img {
-    width: 100%;
-    height: 100%;
-    filter: brightness(1.0);
-    vertical-align: top;
+  width: 100%;
+  height: 100%;
+  filter: brightness(1.0);
+  vertical-align: top;
 }
 
 .message-content {
@@ -678,6 +679,77 @@ body.light-mode li::marker {
 
 .user-message .message-content {
     background: var(--user-message-bg, #e8f5e9);
+}
+
+/* Additional AI message content specific styling */
+.ai-message-content {
+    /* Add any specific styles for AI messages here */
+    /* For example: */
+}
+
+.ai-message-content .markdown-body {
+    line-height: 1.6;
+}
+
+.ai-message-content .markdown-body h1,
+.ai-message-content .markdown-body h2,
+.ai-message-content .markdown-body h3,
+.ai-message-content .markdown-body h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.ai-message-content .markdown-body ul,
+.ai-message-content .markdown-body ol {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+.ai-message-content .markdown-body li {
+    margin-bottom: 0.3em;
+}
+
+.ai-message-content .markdown-body code {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    font-size: 85%;
+}
+
+.ai-message-content .markdown-body pre {
+    margin: 1em 0;
+    border-radius: 6px;
+    overflow: auto;
+}
+
+.ai-message-content .markdown-body pre code {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 1em;
+    font-size: 85%;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .ai-message-content .markdown-body code {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .ai-message-content .markdown-body pre code {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .ai-message-content .markdown-body h1,
+    .ai-message-content .markdown-body h2,
+    .ai-message-content .markdown-body h3,
+    .ai-message-content .markdown-body h4 {
+        color: #e0e0e0;
+    }
 }
 
 .message-text {
@@ -840,11 +912,62 @@ body.light-mode li::marker {
     transition: opacity 0.5s;
 }
 
-#API-setting-section textarea.api-key {
+#API-setting-section input.api-key {
     width: 100%;
 }
 
-#api-text {
-    display: flex;
-    align-items: center;
+/* Add these rules to your existing CSS */
+
+
+
+/* Style for markdown content */
+.markdown-body {
+    line-height: 1.6;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.markdown-body code {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    font-size: 85%;
+}
+
+.markdown-body pre {
+    margin: 1em 0;
+    border-radius: 6px;
+    overflow: auto;
+}
+
+.markdown-body pre code {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 1em;
+    font-size: 85%;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .markdown-body code {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .markdown-body pre code {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.copy-to-clipboard-button{
+  background-color: white;
 }

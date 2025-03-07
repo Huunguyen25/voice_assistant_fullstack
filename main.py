@@ -6,10 +6,10 @@ from engine.features import *
 from engine.command import *
 
 # Initialize eel with your web files directory
-eel.init('www')
+eel.init("www")
 
 # Create database and tables
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect("database.db")
 create_tables(conn)
 
 # Start the application

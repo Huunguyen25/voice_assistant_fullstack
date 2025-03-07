@@ -12,6 +12,13 @@
     <link rel="icon" type="" href="assets/img/icon/favicon.ico">
     <!-- Textillate CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.compat.css"/>
+    
+    <!-- Add Markdown CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    
+    <!-- Add Prism.js for syntax highlighting (optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
 
     <link rel="stylesheet" href="style.css">
 
@@ -62,10 +69,10 @@
             <div class="card">
                 <textarea class="chatbox" id="chatbox" placeholder="Ask me anything"></textarea>
             </div>
-            <button id="microphone-btn" class="mic-wrapper">
+            <button id="microphone-btn" class="mic-wrapper" >
                 <img src="assets/img/microphone.svg" alt="microphone">
             </button>
-            <button id="send-btn" class="send-wrapper" style="display: none;">
+            <button id="send-btn" class="send-wrapper" hidden>
                 <img src="assets/img/send.svg" alt="send">
             </button>
         </div>
@@ -110,8 +117,8 @@
                         <label id="system-app-text">Add Your New System App</label>
                         <div class="non-draggable-setting-container" id="system-app-path-container">
                             <div class="input-row">
-                            <textarea class="setting-file-input keywords-for-app" id="files-path-inputs" placeholder="Keywords" required></textarea>
-                            <textarea class="setting-file-input system-app-path" id="system-app-path" placeholder="App Path" required></textarea>
+                            <input class="setting-file-input keywords-for-app" id="files-path-inputs" placeholder="Keywords" required></input>
+                            <input class="setting-file-input system-app-path" id="system-app-path" placeholder="App Path" required></input>
                             <button class="add-path-button" id="add-path-button">
                                 <img src="assets/img/add_icon.png">
                             </button>
@@ -129,11 +136,11 @@
                         <label id="web-command-text">Add Your New Web App</label>
                         <div class="non-draggable-setting-container" id="web-app-path-container">
                             <div class="input-row">
-                            <textarea class="setting-file-input keywords-for-url" id="keywords-for-url" placeholder="Keywords" required></textarea>
-                            <textarea class="setting-file-input url-path" id="url-path" placeholder="URL Path" required></textarea>
-                            <button class="add-url-button" id="add-url-button">
-                                <img src="assets/img/add_icon.png">
-                            </button>
+                                <input class="setting-file-input keywords-for-url" id="keywords-for-url" placeholder="Keywords" required></input>
+                                <input class="setting-file-input url-path" id="url-path" placeholder="URL Path" required></input>
+                                <button class="add-url-button" id="add-url-button">
+                                    <img src="assets/img/add_icon.png">
+                                </button>
                             </div>
                             <div class="input-labels">
                                 <span>ID</span>
@@ -146,7 +153,14 @@
                     <!-- API Settings Section -->
                     <div id="API-setting-section" class="settings-section">
                         <label id="api-text">Open Router API</label>
-                        <textarea class="setting-file-input api-key" id="api-key" placeholder="Enter your API key"></textarea>
+                        <div class="non-draggable-setting-container">
+                            <div class="input-row">
+                                <input type="text" class="setting-file-input api-key" placeholder="API Key" required>
+                                <button class="add-api-button" id="add-api-button">
+                                    <img src="assets/img/add_icon.png">
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,6 +171,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
+    
+    <!-- Add Marked.js for Markdown parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    
+    <!-- Add Prism.js for syntax highlighting (optional) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 
     <!-- general scripts -->
     <script src="assets/js/main.js"></script>

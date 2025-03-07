@@ -44,7 +44,7 @@ def open_command(query):
         try:
             # first search in sys_command table
             cursor.execute(
-                "SELECT path FROM sys_command WHERE name IN (?)", (app_name,)
+                "SELECT api FROM sys_command WHERE name IN (?)", (app_name,)
             )
             results = cursor.fetchall()
             if len(results) != 0:
