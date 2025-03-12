@@ -3,7 +3,6 @@ $(document).ready(function () {
     const DEFAULT_MESSAGE = "How can I help you today?";
 
     eel.expose(display_message)
-
     function display_message(message) {
         $(".capy-message .texts .current").text(message || DEFAULT_MESSAGE);
         $(".capy-message > span").attr('aria-label', message || DEFAULT_MESSAGE);

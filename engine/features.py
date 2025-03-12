@@ -5,6 +5,7 @@ import eel
 import os
 
 import pyaudio
+
 from engine.command import *
 import pywhatkit as kit
 import platform
@@ -37,47 +38,51 @@ def playDeactivationSound():
     playsound(deactivationSound)
 
 
+# problems here
+# errors happening when fetching from database on mac
+# usually mac don't require the need for system apps to be added in db.
+# as a result, fetch from db returns empty
 def open_command(query):
     query = query.replace("open", "").lower()
     app_name = query.strip()
     if app_name != "":
         try:
             # first search in sys_command table
-            cursor.execute(
-                "SELECT api FROM sys_command WHERE name IN (?)", (app_name,)
-            )
+            cursor.execute("SELECT path FROM sys_command WHERE name = ?", (app_name,))
             results = cursor.fetchall()
+            # if found in sys_command table, open the app
             if len(results) != 0:
-                speak("Opening " + query)
+                speak("Opening " + app_name)
                 platform_open(results[0][0])
             # if not found in sys_command table, search in web_command table
-            elif len(results) == 0:
+            else:
                 cursor.execute(
-                    "SELECT url FROM web_command WHERE name IN (?)", (app_name,)
+                    "SELECT url FROM web_command WHERE name = ?", (app_name,)
                 )
                 results = cursor.fetchall()
-
                 # if found in web_command table, open the url in browser
                 if len(results) != 0:
-                    speak("Opening " + query)
+                    speak("Opening " + app_name)
                     webbrowser.open(results[0][0])
                 else:
-                    speak("Opening " + query)
                     try:
-                        platform_open(query)
-                    except:
-                        speak("Not found")
-                        eel.showHood()
-        except:
-            speak("Something went wrong")
+                        speak("Opening " + app_name)
+                        platform_open(app_name)
+                    except Exception as e:
+                        speak("Sorry, I couldn't find " + app_name)
+                        print(f"ERROR: {e}")
+        except Exception as e:
+            print("An error occurred:", e)
+            speak("Sorry, something went wrong")
             eel.showHood()
-    eel.showHood()
+    else:
+        eel.showHood()
 
 
 def platform_open(query):
     if query != "":
         if platform.system() == "Darwin":
-            subprocess.call((f'open -a "{query}"'))
+            subprocess.call(["open", "-a", query])
         elif platform.system() == "Windows":
             try:
                 query = query.lower().strip()

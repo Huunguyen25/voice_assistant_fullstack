@@ -13,13 +13,6 @@
     <!-- Textillate CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.compat.css"/>
     
-    <!-- Add Markdown CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
-    
-    <!-- Add Prism.js for syntax highlighting (optional) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
-
     <link rel="stylesheet" href="style.css">
 
     <!-- Load eel.js first -->
@@ -39,25 +32,27 @@
     <div class="wrapper">
         <div class="messages-container"> <!-- make hidden when microphone activate -->
             <div class="messages-list" id="messages-list">
-                <div class="message ai-message">
 
-                    <!-- <div class="message-avatar">
+
+                <div class="user-message-container">
+                    <div class="user-message-content">
+                        <div class="user-message-text">Hello, this is a test message and I wnat to see how it is styled, hopefully this looks good in the final product as I am not sure if I can make it look good.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-message-container">
+                    <div class="ai-message-avatar">
                         <img src="assets/img/icon/icon.png" alt="AI">
                     </div>
-                    <div class="message-content">
-                        <div class="message-text">Hello! How can I help you today?</div>
-                    </div> -->
-                </div>
-                <div class="message user-message">
-
-                    <!-- <div class="message-avatar">
-                        <img src="assets/img/user-avatar.svg" alt="User">
+                    <div class="ai-message-content">
+                        <div class="ai-message-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 😊</div>
                     </div>
-                    <div class="message-content">
-                        <div class="message-text">Hi! I have a question.</div>
-                    </div> -->
-
                 </div>
+
             </div>
         </div>
         <div class="dot-animation" id="dot-animation" data-title="dot-elastic">
@@ -172,20 +167,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
     
-    <!-- Add Marked.js for Markdown parsing -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
-    
-    <!-- Add Prism.js for syntax highlighting (optional) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
 
     <!-- general scripts -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/controller.js"></script>
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/messages.js"></script>
     <script src="assets/js/settings-container.js"></script>
 </body>
 </html>

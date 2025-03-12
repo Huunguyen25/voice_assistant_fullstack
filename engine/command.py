@@ -57,7 +57,6 @@ def start_recording():
 @eel.expose
 def all_command():
     query = start_recording()
-    print(query)
     try:
         if "open" in query:
             from engine.features import open_command
@@ -69,7 +68,33 @@ def all_command():
 
             play_youtube(query)
         else:
-            print("I don't understand")
+            print("Command not recognized")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        eel.showHood()
+    eel.showHood()
+
+
+@eel.expose
+def all_command_text(message):
+    query = message
+    try:
+        if "open" in query:
+            from engine.features import open_command
+
+            open_command(query)
+        elif "play" in query:
+            query = extract_with_regex(query)
+            from engine.features import play_youtube
+
+            play_youtube(query)
+        else:
+            from engine.ai import ai_response
+
+            response = ai_response(query)
+            print(response)
+            isAi = True
+            eel.createMessage(response, isAi)
     except Exception as e:
         print(f"An error occurred: {e}")
         eel.showHood()
