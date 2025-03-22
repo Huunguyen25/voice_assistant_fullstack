@@ -28,14 +28,24 @@ command_mapping = {
 
 @eel.expose
 def playActivationSound():
-    activationSound = "www/audio/recording-on.mp3"
-    playsound(activationSound)
+    try:
+        activationSound = "www/audio/recording-on.mp3"
+        playsound(activationSound)
+        return True
+    except Exception as e:
+        print(f"Error playing activation sound: {e}")
+        return False
 
 
 @eel.expose
 def playDeactivationSound():
-    deactivationSound = "www/audio/recording-off.mp3"
-    playsound(deactivationSound)
+    try:
+        deactivationSound = "www/audio/recording-off.mp3"
+        playsound(deactivationSound)
+        return True
+    except Exception as e:
+        print(f"Error playing deactivation sound: {e}")
+        return False
 
 
 # problems here

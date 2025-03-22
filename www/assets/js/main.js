@@ -82,7 +82,7 @@ $(document).ready(function() {
 
     // Add Enter key listener to send messages
     $('#chatbox').keydown(function(e){
-        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
             e.preventDefault(); // Prevent new line
             if ($('#chatbox').val().trim().length > 0) {
                 $('#send-btn').click(); // Trigger send button click
@@ -102,29 +102,47 @@ $(document).ready(function() {
 
     $('#send-btn').click(function(){
         let message = $('#chatbox').val();
-        eel.all_command_text(message)();
-        $('#chatbox').val('');
-        toggleBtn('');
-        isAi = false;
-        createMessage(message, isAi);
+        try {
+            eel.all_command_text(message)(
+                function(response) {
+                    // Success callback - empty as createMessage is called from Python
+                },
+                function(error) {
+                    // Error callback
+                    console.error("Error calling all_command_text:", error);
+                    createMessage("Sorry, I encountered an error processing your request.", true);
+                }
+            );
+            $('#chatbox').val('');
+            toggleBtn('');
+            isAi = false;
+            createMessage(message, isAi);
+        } catch(e) {
+            console.error("Exception when sending message:", e);
+            createMessage("Sorry, there was a problem communicating with the assistant.", true);
+        }
     });
     
     eel.expose(createMessage);
     function createMessage(message, isAi) {
-        const messageContainer = $('<div>').addClass(isAi ? 'ai-message-container' : 'user-message-container');
-        const messageContent = $('<div>').addClass(isAi ? 'ai-message-content' : 'user-message-content');
-        const messageText = $('<span>').addClass(isAi ? 'ai-message-text' : 'user-message-text').text(message);
+        try {
+            const messageContainer = $('<div>').addClass(isAi ? 'ai-message-container' : 'user-message-container');
+            const messageContent = $('<div>').addClass(isAi ? 'ai-message-content' : 'user-message-content');
+            const messageText = $('<span>').addClass(isAi ? 'ai-message-text' : 'user-message-text').text(message || "No response");
 
-        if (isAi) {
-            const messageAvatar = $('<div>').addClass('ai-message-avatar').append(
-                $('<img>').attr('src', 'assets/img/icon/icon.png').attr('alt', 'AI')
-            );
-            messageContainer.append(messageAvatar);
+            if (isAi) {
+                const messageAvatar = $('<div>').addClass('ai-message-avatar').append(
+                    $('<img>').attr('src', 'assets/img/icon/icon.png').attr('alt', 'AI')
+                );
+                messageContainer.append(messageAvatar);
+            }
+
+            messageContent.append(messageText);
+            messageContainer.append(messageContent);
+            $('.messages-list').append(messageContainer);
+            $('.messages-list').scrollTop($('.messages-list')[0].scrollHeight);
+        } catch(e) {
+            console.error("Error creating message:", e);
         }
-
-        messageContent.append(messageText);
-        messageContainer.append(messageContent);
-        $('.messages-list').append(messageContainer);
-        $('.messages-list').scrollTop($('.messages-list')[0].scrollHeight);
     }
 });

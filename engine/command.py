@@ -54,26 +54,44 @@ def start_recording():
     return query
 
 
+processing = False
+
 @eel.expose
 def all_command():
+    global processing
+    if processing:
+        return  # Block if already processing a command
+    processing = True
     query = start_recording()
     try:
         if "open" in query:
             from engine.features import open_command
-
             open_command(query)
         elif "play" in query:
             query = extract_with_regex(query)
             from engine.features import play_youtube
-
             play_youtube(query)
         else:
-            print("Command not recognized")
+            ai_voice_rules = "Respond as if we're having a natural conversation, avoiding code blocks or markdown formatting. Instead of listing steps formally, explain them in a casual and spoken manner. IMPORTANT: Please make it super short and concise, about 1-2 sentences"
+            response = safe_ai_response((ai_voice_rules, query))
+            eel.display_message(response)
+            speak(response)
+            eel.showHood()
     except Exception as e:
         print(f"An error occurred: {e}")
         eel.showHood()
+    processing = False
     eel.showHood()
 
+
+def safe_ai_response(query):
+    try:
+        from engine.ai import ai_response
+        response = ai_response(query)
+        return response
+    except Exception as e:
+        print(f"Error calling AI: {e}")
+        return "Sorry, I encountered an error while processing your request."
 
 @eel.expose
 def all_command_text(message):
@@ -81,21 +99,17 @@ def all_command_text(message):
     try:
         if "open" in query:
             from engine.features import open_command
-
             open_command(query)
         elif "play" in query:
             query = extract_with_regex(query)
             from engine.features import play_youtube
-
             play_youtube(query)
         else:
-            from engine.ai import ai_response
-
-            response = ai_response(query)
+            response = safe_ai_response(query)
             print(response)
             isAi = True
             eel.createMessage(response, isAi)
     except Exception as e:
         print(f"An error occurred: {e}")
-        eel.showHood()
+        eel.createMessage(f"Sorry, an error occurred: {str(e)}", True)
     eel.showHood()
