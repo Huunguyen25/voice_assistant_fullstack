@@ -80,6 +80,16 @@ $(document).ready(function() {
         toggleBtn(message);
     })
 
+    // Add Enter key listener to send messages
+    $('#chatbox').keydown(function(e){
+        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            e.preventDefault(); // Prevent new line
+            if ($('#chatbox').val().trim().length > 0) {
+                $('#send-btn').click(); // Trigger send button click
+            }
+        }
+    });
+
     function toggleBtn(message){
         if (message.length == 0){
             $('#send-btn').prop('hidden', true);
@@ -103,7 +113,7 @@ $(document).ready(function() {
     function createMessage(message, isAi) {
         const messageContainer = $('<div>').addClass(isAi ? 'ai-message-container' : 'user-message-container');
         const messageContent = $('<div>').addClass(isAi ? 'ai-message-content' : 'user-message-content');
-        const messageText = $('<div>').addClass(isAi ? 'ai-message-text' : 'user-message-text').text(message);
+        const messageText = $('<span>').addClass(isAi ? 'ai-message-text' : 'user-message-text').text(message);
 
         if (isAi) {
             const messageAvatar = $('<div>').addClass('ai-message-avatar').append(

@@ -15,7 +15,6 @@ def retrieveAPI():
 @eel.expose
 def ai_response(query):
     api = retrieveAPI()
-    print(api)
     if api is not None:
         try:
             client = OpenAI(
