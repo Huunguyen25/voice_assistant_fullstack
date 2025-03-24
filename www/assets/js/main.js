@@ -128,18 +128,37 @@ $(document).ready(function() {
         try {
             const messageContainer = $('<div>').addClass(isAi ? 'ai-message-container' : 'user-message-container');
             const messageContent = $('<div>').addClass(isAi ? 'ai-message-content' : 'user-message-content');
-            const messageText = $('<span>').addClass(isAi ? 'ai-message-text' : 'user-message-text').text(message || "No response");
-
+            
             if (isAi) {
+                // For AI messages, use marked.js to parse markdown
+                const messageText = $('<div>')
+                    .addClass('ai-message-text markdown-content')
+                    .html(marked.parse(message || "No response"));
+                
                 const messageAvatar = $('<div>').addClass('ai-message-avatar').append(
                     $('<img>').attr('src', 'assets/img/icon/icon.png').attr('alt', 'AI')
                 );
                 messageContainer.append(messageAvatar);
+                messageContent.append(messageText);
+            } else {
+                // For user messages, keep as plain text
+                const messageText = $('<span>')
+                    .addClass('user-message-text')
+                    .text(message || "No response");
+                messageContent.append(messageText);
             }
-
-            messageContent.append(messageText);
+            
             messageContainer.append(messageContent);
             $('.messages-list').append(messageContainer);
+            
+            // Syntax highlighting for code blocks if using highlight.js (optional enhancement)
+            if (isAi && typeof hljs !== 'undefined') {
+                messageContainer.find('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
+            }
+            
+            // Scroll to the bottom of the chat
             $('.messages-list').scrollTop($('.messages-list')[0].scrollHeight);
         } catch(e) {
             console.error("Error creating message:", e);
