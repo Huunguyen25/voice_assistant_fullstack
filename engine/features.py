@@ -14,6 +14,9 @@ import sqlite3
 import pvporcupine
 import time
 
+
+import re
+
 conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
 
@@ -64,6 +67,7 @@ def open_command(query):
             if len(results) != 0:
                 speak("Opening " + app_name)
                 platform_open(results[0][0])
+                print(results[0][0])
             # if not found in sys_command table, search in web_command table
             else:
                 cursor.execute(
@@ -73,9 +77,12 @@ def open_command(query):
                 # if found in web_command table, open the url in browser
                 if len(results) != 0:
                     speak("Opening " + app_name)
-                    webbrowser.open(results[0][0])
+                    # webbrowser.open(results[0][0])
+                    print("opening " + app_name)
+                    platform_open(results[0][0])
                 else:
                     try:
+
                         speak("Opening " + app_name)
                         platform_open(app_name)
                     except Exception as e:
@@ -92,7 +99,17 @@ def open_command(query):
 def platform_open(query):
     if query != "":
         if platform.system() == "Darwin":
-            subprocess.call(["open", "-a", query])
+            if (
+                "." in query and " " not in query
+            ):
+                url = (
+                    query
+                    if query.startswith(("http://", "https://"))
+                    else f"https://{query}"
+                )
+                subprocess.call(["open", url])
+            else:
+                subprocess.call(["open", "-a", query])
         elif platform.system() == "Windows":
             try:
                 query = query.lower().strip()

@@ -23,3 +23,6 @@ testing/
 
 #database
 *.db
+
+dist/
+build/

@@ -6,14 +6,16 @@ import multiprocessing
 
 def start_core():
     print("Process 1 is running.")
-    from main import start
-    start()
+    from main import start_app
+
+    start_app()
     # To run hotword
 
 
 def listenHotword():
     print("Process 2 is running.")
     from engine.features import hotword
+
     hotword()
 
 
