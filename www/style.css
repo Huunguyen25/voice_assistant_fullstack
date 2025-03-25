@@ -1,3 +1,6 @@
+:root{
+  overflow: hidden;
+}
 body {
   height: 100vh;
   margin: 0;
@@ -6,8 +9,8 @@ body {
 }
 
 html.dark body {
-filter: invert(100%) hue-rotate(180deg);
-background-color: #404045;
+  filter: invert(100%) hue-rotate(180deg);
+  background-color: #404045;
 }
 
 html.dark img, 
