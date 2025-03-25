@@ -1,11 +1,8 @@
 import struct
-import webbrowser
 from playsound import playsound
 import eel
 import os
-
 import pyaudio
-
 from engine.command import *
 import pywhatkit as kit
 import platform
@@ -13,9 +10,6 @@ import subprocess
 import sqlite3
 import pvporcupine
 import time
-
-
-import re
 
 conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
@@ -51,10 +45,6 @@ def playDeactivationSound():
         return False
 
 
-# problems here
-# errors happening when fetching from database on mac
-# usually mac don't require the need for system apps to be added in db.
-# as a result, fetch from db returns empty
 def open_command(query):
     query = query.replace("open", "").lower()
     app_name = query.strip()
@@ -67,7 +57,6 @@ def open_command(query):
             if len(results) != 0:
                 speak("Opening " + app_name)
                 platform_open(results[0][0])
-                print(results[0][0])
             # if not found in sys_command table, search in web_command table
             else:
                 cursor.execute(
@@ -77,8 +66,6 @@ def open_command(query):
                 # if found in web_command table, open the url in browser
                 if len(results) != 0:
                     speak("Opening " + app_name)
-                    # webbrowser.open(results[0][0])
-                    print("opening " + app_name)
                     platform_open(results[0][0])
                 else:
                     try:
@@ -99,9 +86,7 @@ def open_command(query):
 def platform_open(query):
     if query != "":
         if platform.system() == "Darwin":
-            if (
-                "." in query and " " not in query
-            ):
+            if "." in query and " " not in query:
                 url = (
                     query
                     if query.startswith(("http://", "https://"))
@@ -128,13 +113,24 @@ def play_youtube(query):
         kit.playonyt(query)
 
 
-def hotword():
+# New function that uses file-based communication
+def hotword_monitor(flag_file):
     porcupine = None
     paud = None
     audio_stream = None
+
+    access_key = os.getenv("PICOVOICE_ACCESS_KEY")
     try:
-        # pre-trained keywords
-        porcupine = pvporcupine.create(keywords=["hey google"])
+        if access_key:
+            porcupine = pvporcupine.create(
+                access_key=access_key,
+                keywords=["hey google"],
+            )
+        else:
+            porcupine = pvporcupine.create(
+                access_key=access_key,
+                keywords=["hey google"],
+            )
         paud = pyaudio.PyAudio()
         audio_stream = paud.open(
             rate=porcupine.sample_rate,
@@ -150,15 +146,30 @@ def hotword():
             keyword = struct.unpack_from("h" * porcupine.frame_length, keyword_audio)
             keyword_index = porcupine.process(keyword)
 
-            # checking if any keyword detected
             if keyword_index >= 0:
-                print("Hotword detected!")
-                import pyautogui as autogui
+                print("Hotword detected! Creating flag file.")
 
-                autogui.keyDown("win")
-                autogui.press("j")
+                # modifying a .flag file that main thread will detect if changed.
+                with open(flag_file, "w") as f:
+                    f.write(str(time.time()))
+                # Also try simulator keystroke if file modification error arises.
+                try:
+                    import pyautogui as autogui
+
+                    if platform.system() == "Darwin":  # macOS
+                        autogui.keyDown("command")
+                        autogui.press("j")
+                        time.sleep(0.5)
+                        autogui.keyUp("command")
+                    else:  # Windows or other platforms
+                        autogui.keyDown("win")
+                        autogui.press("j")
+                        time.sleep(0.5)
+                        autogui.keyUp("win")
+                except Exception as e:
+                    print(f"Keyboard shortcut failed: {e}")
                 time.sleep(2)
-                autogui.keyUp("win")
+
             time.sleep(0.01)
 
     except Exception as e:

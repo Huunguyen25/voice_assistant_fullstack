@@ -43,28 +43,27 @@ $(document).ready(function() {
         initTextillate();
     }
 
-    function recording_mode(message) {
-        if (message != ""){
-            resetToDefaultMessage();
-            //make it so sidebar are closed before overlay starts
-            sidebar_close()
-            eel.playActivationSound();
-            elements.micBtn.prop('disabled', true);
+    eel.expose(recording_mode)
+    function recording_mode() {
+        resetToDefaultMessage();
 
-            eel.speak("How can I help?");
-            setTimeout(function() {
-                eel.all_command()();
-            }, 500);
-        
-            capyMessage.prop('hidden', false);
-            capyMessage.textillate('in');
+        sidebar_close()
+        eel.playActivationSound();
+        elements.micBtn.prop('disabled', true);
 
-            elements.card.addClass('shrink');
-            elements.messagesContainer.hide();
-            elements.settings.hide();
-            elements.dotAnimation.addClass('show');
-            elements.voiceAssistingOverlay.addClass('show');
-        }
+        eel.speak("How can I help?");
+        setTimeout(function() {
+            eel.all_command()();
+        }, 500);
+    
+        capyMessage.prop('hidden', false);
+        capyMessage.textillate('in');
+
+        elements.card.addClass('shrink');
+        elements.messagesContainer.hide();
+        elements.settings.hide();
+        elements.dotAnimation.addClass('show');
+        elements.voiceAssistingOverlay.addClass('show');
     }
 
     $("#microphone-btn").click(function() {
@@ -73,6 +72,7 @@ $(document).ready(function() {
     
     function doc_keyUp(e) {
         if (e.key === 'j' && e.metaKey) {
+            console.log("recording mode activating")
             recording_mode();
         }
     }
@@ -180,14 +180,21 @@ $(document).ready(function() {
     const sidebar = $(".sidebar")
     const sidebar_global_container = $(".sidebar-global-container")
 
+    const setting_button_container = $(".setting-button-container")
+    const history_sidebar_container = $(".sidebar-container")
+
     function sidebar_open(){
         sidebar_global_container.css({"opacity":"1"});
         sidebar_button_open.prop("hidden", true);
+        setting_button_container.prop("hidden", false);
+        history_sidebar_container.prop("hidden", false);
         sidebar.addClass("open");
     }
 
     function sidebar_close(){
         sidebar_global_container.css({"opacity":"0"});
+        setting_button_container.prop("hidden", true);
+        history_sidebar_container.prop("hidden", true);
         setTimeout(function() {
             sidebar_button_open.prop("hidden", false);
         })

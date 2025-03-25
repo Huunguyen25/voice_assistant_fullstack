@@ -18,8 +18,9 @@ $(document).ready(function() {
 
     // API Key Management
     const $apiKeyContainer = $('#API-setting-section .non-draggable-setting-container');
-    const $apiKeyInput = $apiKeyContainer.find('.api-key');
-    const $addApiKeyButton = $('#add-api-button');
+    // Update the selector to match the new class name in HTML
+    const $apiKeyInput = $apiKeyContainer.find('.setting-file-input.openrouter-api-key-input');
+    const $addOpenRouterKeyBtn = $('#add-openrouter-api-button');
     
     // Create a container for displaying the API key (similar to app lists)
     const $apiKeyDisplay = $('<div id="api-key-display" class="apps-list"></div>');
@@ -43,23 +44,23 @@ $(document).ready(function() {
             $apiKeyDisplay.append($entryDiv);
             
             // Hide add button when API key exists
-            $addApiKeyButton.hide();
+            $addOpenRouterKeyBtn.hide();
             
             // Disable the input field to prevent typing
             $apiKeyInput.prop('disabled', true)
-                         .attr('placeholder', 'API Key added')
+                         .attr('placeholder', 'Open Router API Key added')
                          .blur(); // Unfocus the input field
             
             // Set up delete functionality
             $deleteButton.on('click', function() {
-                eel.delete_api_key(apiKey)(function(response) {
+                eel.delete_openrouter_api_key(apiKey)(function(response) {
                     localStorage.removeItem('apiKey');
                     updateApiKeyDisplay();
-                    $addApiKeyButton.show();
+                    $addOpenRouterKeyBtn.show();
                     
                     // Re-enable the input field after deletion
                     $apiKeyInput.prop('disabled', false)
-                                .attr('placeholder', 'API Key');
+                                .attr('placeholder', 'Open Router API Key');
                 }, function(error) {
                     console.error('Failed to delete API key:', error);
                     alert('Failed to delete API key. Please check if the backend is running.');
@@ -67,21 +68,21 @@ $(document).ready(function() {
             });
         } else {
             // Show add button when no API key exists
-            $addApiKeyButton.show();
+            $addOpenRouterKeyBtn.show();
             
             // Make sure the input field is enabled
             $apiKeyInput.prop('disabled', false)
-                        .attr('placeholder', 'API Key');
+                        .attr('placeholder', 'Open Router API Key');
         }
     }
     
     // Event listener for adding API key
-    $addApiKeyButton.on('click', function() {
+    $addOpenRouterKeyBtn.on('click', function() {
         const apiKey = $apiKeyInput.val().trim();
         
         if (apiKey) {
             // Use a generic name like 'openrouter' since we're only storing one key
-            eel.add_api_key('openrouter', apiKey)(function(response) {
+            eel.add_openrouter_api_key('openrouter', apiKey)(function(response) {
                 // Store in localStorage
                 localStorage.setItem('apiKey', apiKey);
                 

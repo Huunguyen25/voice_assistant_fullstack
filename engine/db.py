@@ -41,21 +41,41 @@ def add_web_command(name, url):
 
 
 @eel.expose
-def add_api_key(name, api):
+def add_openrouter_api_key(openrouter, api):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
     query = "INSERT INTO api_key VALUES (null, ?, ?)"
-    cursor.execute(query, (name, api))
+    cursor.execute(query, (openrouter, api))
     conn.commit()
     conn.close()
 
 
 @eel.expose
-def delete_api_key(api):
+def delete_openrouter_api_key(openrouter):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
     query = "DELETE FROM api_key WHERE api = ?"
-    cursor.execute(query, (api,))
+    cursor.execute(query, (openrouter,))
+    conn.commit()
+    conn.close()
+
+
+@eel.expose
+def add_picovoice_api_key(picovoice, picovoice_api):
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    query = "INSERT INTO api_key VALUES (null, ?, ?)"
+    cursor.execute(query, (picovoice, picovoice_api))
+    conn.commit()
+    conn.close()
+
+
+@eel.expose
+def delete_picovoice_api_key(picovoice_api):
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    query = "DELETE FROM api_key WHERE api = ?"
+    cursor.execute(query, (picovoice_api,))
     conn.commit()
     conn.close()
 

@@ -24,7 +24,7 @@ def ai_response(query):
         api = retrieveAPI()
         if api is None:
             return "API key not found. Please add your API key in settings."
-        
+
         client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=f"{api}",
