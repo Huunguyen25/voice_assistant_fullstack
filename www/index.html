@@ -12,15 +12,9 @@
     <link rel="icon" type="" href="assets/img/icon/favicon.ico">
     <!-- Textillate CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.compat.css"/>
-    
     <link rel="stylesheet" href="style.css">
-
-    <!-- Load eel.js first -->
     <script type="text/javascript" src="/eel.js"></script>
-    
-    <!-- jQuery and other dependencies -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -225,11 +219,36 @@
     <!-- Add highlight.js for code syntax highlighting (optional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-
+    
     <!-- general scripts -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/controller.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/settings-container.js"></script>
+    
+    <!-- MathJax for LaTeX support -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: 'ams'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                processHtmlClass: 'math-content'
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            startup: {
+                pageReady() {
+                    return MathJax.startup.defaultPageReady();
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </body>
 </html>

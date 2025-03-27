@@ -16,6 +16,9 @@ def create_tables(conn):
     query = "CREATE TABLE IF NOT EXISTS api_key(id INTEGER PRIMARY KEY, name VARCHAR(100), api VARCHAR(1000))"
     cursor.execute(query)
 
+    query = "CREATE TABLE IF NOT EXISTS chat_log(id INTEGER PRIMARY KEY, session_id VARCHAR(100), user_message VARCHAR(10000), ai_message VARCHAR(10000), timestamp VARCHAR(100))"
+    cursor.execute(query)
+
     conn.commit()
     conn.close()
 

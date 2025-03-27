@@ -145,10 +145,56 @@ $(document).ready(function() {
             const messageContent = $('<div>').addClass(isAi ? 'ai-message-content' : 'user-message-content');
             
             if (isAi) {
-                // For AI messages, use marked.js to parse markdown
+                let processedMessage = message || "No response";
+                
+                // Protect LaTeX blocks from Markdown processing
+                
+                // 1. Save display math blocks
+                const displayMathBlocks = [];
+                processedMessage = processedMessage.replace(/\\\[(.*?)\\\]/gs, function(match, latex) {
+                    displayMathBlocks.push(latex);
+                    return `DISPLAY_MATH_${displayMathBlocks.length - 1}`;
+                });
+                
+                // 2. Save inline math blocks
+                const inlineMathBlocks = [];
+                processedMessage = processedMessage.replace(/\\\((.*?)\\\)/gs, function(match, latex) {
+                    inlineMathBlocks.push(latex);
+                    return `INLINE_MATH_${inlineMathBlocks.length - 1}`;
+                });
+                
+                // Process text commands
+                processedMessage = processedMessage.replace(/\\text\{(.*?)\}/g, '$1');
+                
+                // Process boxed commands
+                processedMessage = processedMessage.replace(/\\boxed\{(.*?)\}/g, function(match, content) {
+                    return `$\\boxed{${content}}$`;
+                });
+                
+                // Apply Markdown processing
+                let htmlContent = marked.parse(processedMessage);
+                
+                // Restore LaTeX blocks
+                // 1. Restore display math
+                displayMathBlocks.forEach((latex, i) => {
+                    htmlContent = htmlContent.replace(
+                        new RegExp(`DISPLAY_MATH_${i}`, 'g'), 
+                        `$$${latex}$$`
+                    );
+                });
+                
+                // 2. Restore inline math
+                inlineMathBlocks.forEach((latex, i) => {
+                    htmlContent = htmlContent.replace(
+                        new RegExp(`INLINE_MATH_${i}`, 'g'), 
+                        `$${latex}$`
+                    );
+                });
+                
+                // Create message element
                 const messageText = $('<div>')
-                    .addClass('ai-message-text markdown-content')
-                    .html(marked.parse(message || "No response"));
+                    .addClass('ai-message-text markdown-content math-content')
+                    .html(htmlContent);
                 
                 const messageAvatar = $('<div>').addClass('ai-message-avatar').append(
                     $('<img>').attr('src', 'assets/img/icon/icon.png').attr('alt', 'AI')
@@ -165,16 +211,25 @@ $(document).ready(function() {
             messageContainer.append(messageContent);
             $('.messages-list').append(messageContainer);
             
-            if (isAi && typeof hljs !== 'undefined') {
-                messageContainer.find('pre code').each(function(i, block) {
-                    hljs.highlightBlock(block);
-                });
+            if (isAi) {
+                if (typeof hljs !== 'undefined') {
+                    messageContainer.find('pre code').each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                }
+                // Render LaTeX after adding to DOM
+                if (typeof MathJax !== 'undefined') {
+                    MathJax.typesetPromise([messageContainer[0]]).catch(function(err) {
+                        console.error('MathJax error:', err);
+                    });
+                }
             }
             $('.messages-list').scrollTop($('.messages-list')[0].scrollHeight);
         } catch(e) {
             console.error("Error creating message:", e);
         }
     }
+    
     const sidebar_button_open = $("#sidebar-open-button")
     const sidebar_button_close = $("#sidebar-close-button")
     const sidebar = $(".sidebar")

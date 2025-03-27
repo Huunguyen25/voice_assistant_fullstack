@@ -46,6 +46,7 @@ https://github.com/user-attachments/assets/b6615294-5f40-461a-a383-c3ee64bc8e15
 ## 📋 ROADMAPS
 - [x] Implement AI converstation
 - [x] Play on youtube feature
+- [x] Convert AI stateless API to stateful
 - [ ] Implement chat history
 - [ ] Search/Play spotify feature
 - [ ] Whatsapp texting Feature

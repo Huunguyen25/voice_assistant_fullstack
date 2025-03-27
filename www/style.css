@@ -923,13 +923,12 @@ background: black;
 }
 
 .messages-container {
-height: 95%;
+height: 100%;
 overflow-y: auto;
-margin-top: 20px;
 scroll-behavior: smooth;
 width: 800px;
 max-width: 95%;
-margin: 20px auto 0;
+margin: 20px 0px 52px 0px;
 z-index: 1;
 position: relative;
 top: 0px;
@@ -1073,4 +1072,49 @@ box-sizing: border-box;
 .center-messages-wrapper {
 height: 100%;
 margin-right: auto;
+}
+
+/* MathJax styling */
+.MathJax {
+  font-size: 1.1em !important;
+}
+
+.markdown-content .MathJax {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.markdown-content mjx-container {
+  display: inline-block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.markdown-content mjx-container:not([display="true"]) {
+  display: inline-block;
+}
+
+.markdown-content mjx-container[display="true"] {
+  display: block;
+  margin: 1em 0;
+}
+
+/* Style for boxed math expressions */
+.markdown-content mjx-container mjx-mrow mjx-menclose[notation="box"] {
+  border: 2px solid #0099ff;
+  padding: 3px;
+  border-radius: 4px;
+  background-color: rgba(0, 153, 255, 0.05);
+}
+
+/* Improve math readability */
+.markdown-content mjx-mfrac {
+  line-height: 2;
+}
+
+/* Ensure math fraction line spacing */
+.markdown-content mjx-mfrac > mjx-frac {
+  padding: 0 0.1em;
 }
