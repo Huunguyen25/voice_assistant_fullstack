@@ -101,7 +101,6 @@ $(document).ready(function() {
             $('#microphone-btn').prop('hidden', true);
         }
     }
-
     $('#send-btn').click(function(){
         let message = $('#chatbox').val();
         try {

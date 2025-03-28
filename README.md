@@ -11,15 +11,25 @@ git clone https://github.com/Huunguyen25/voice_assistant_fullstack.git
 
 cd voice_assistant_fullstack/
 ```
-#### Build and Run
-```bash
-python -m venv env
-source env/bin/activate
-
-python install -r requirements.txt
-
-python run.py
-```
+#### Build and Run 
+##### For MacOS  
+  > ```bash  
+  > python3 -m venv env  
+  > source env/bin/activate  
+  >   
+  > python3 install -r requirements.txt  
+  >   
+  > python3 run.py  
+  > ```
+##### For Windows  
+  > ```bash  
+  > python -m venv env  
+  > source env/bin/activate  
+  >   
+  > python install -r windows_requirements.txt  
+  >   
+  > python run.py  
+  > ```
 
 >[!WARNING]
 > By default, the app uses `pvporcupine==1.9.5` for Windows, as it doesn’t require an access key. On macOS, this version disables hotword detection without an access key. To enable hotword detection on macOS, visit [picovoice](https://console.picovoice.ai/) and create an access key. Upgrade to `pvporcupine==3.0.5` and add the following line to the bottom of `env/bin/activate` or `.env` file:

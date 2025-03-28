@@ -77,3 +77,30 @@ def ai_response(query):
     except Exception as e:
         print(f"AI response error: {e}")
         return f"Sorry, I can't help you at this time. Error: {str(e)}"
+    
+    
+@eel.expose
+def ai_response_voice(query):
+    try:
+        api = retrieveAPI()
+        if api is None:
+            return "API key not found. Please add your API key in settings."
+
+        client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=api,
+        )
+        completion = client.chat.completions.create(
+            model="deepseek/deepseek-chat-v3-0324:free",
+            messages=[
+            {
+                "role": "user",
+                "content": f"{query}"
+            }
+            ]
+        )
+        ai_response = str(completion.choices[0].message.content)
+        return ai_response
+    except Exception as e:
+        print(f"AI response error: {e}")
+        return f"Sorry, I can't help you at this time. Error: {str(e)}"    

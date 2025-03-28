@@ -118,14 +118,14 @@ def hotword_monitor(flag_file):
     porcupine = None
     paud = None
     audio_stream = None
-
+    
     access_key = os.getenv("PICOVOICE_ACCESS_KEY")
     try:
-        if access_key:
+        if not access_key:
             porcupine = pvporcupine.create(
-                access_key=access_key,
                 keywords=["hey google"],
             )
+            
         else:
             porcupine = pvporcupine.create(
                 access_key=access_key,
@@ -148,26 +148,9 @@ def hotword_monitor(flag_file):
 
             if keyword_index >= 0:
                 print("Hotword detected! Creating flag file.")
-
                 # modifying a .flag file that main thread will detect if changed.
                 with open(flag_file, "w") as f:
                     f.write(str(time.time()))
-                # Also try simulator keystroke if file modification error arises.
-                try:
-                    import pyautogui as autogui
-
-                    if platform.system() == "Darwin":  # macOS
-                        autogui.keyDown("command")
-                        autogui.press("j")
-                        time.sleep(0.5)
-                        autogui.keyUp("command")
-                    else:  # Windows or other platforms
-                        autogui.keyDown("win")
-                        autogui.press("j")
-                        time.sleep(0.5)
-                        autogui.keyUp("win")
-                except Exception as e:
-                    print(f"Keyboard shortcut failed: {e}")
                 time.sleep(2)
 
             time.sleep(0.01)

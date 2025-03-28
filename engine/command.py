@@ -75,9 +75,9 @@ def all_command():
 
             play_youtube(query)
         else:
-            ai_voice_rules = "Respond as if we're having a natural conversation, avoiding code blocks or markdown formatting. Instead of listing steps formally, explain them in a casual and spoken manner. IMPORTANT: Please make it super short and concise, about 1-2 sentences"
-            response = safe_ai_response((ai_voice_rules, query))
-            eel.display_message(response)
+            ai_voice_rules = "RULES: Respond as if we're having a natural conversation, avoiding code blocks or markdown formatting. Instead of listing steps formally, explain them in a casual and spoken manner. IMPORTANT: Please make it super short and concise, about 1-2 sentences"
+            from engine.ai import ai_response_voice
+            response = ai_response_voice((ai_voice_rules, query))
             speak(response)
             eel.showHood()
     except Exception as e:

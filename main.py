@@ -28,12 +28,12 @@ def check_hotword_flag():
         try:
             if os.path.exists(HOTWORD_FLAG_FILE):
                 mod_time = os.path.getmtime(HOTWORD_FLAG_FILE)
-                # first condition checks if the mod time is new than last check
+                # first condition checks if the modify time is new than last check
                 # second checks that if that modification is within the first 5 seconds.
                 if mod_time > last_check_time and time.time() - mod_time < 5:
                     print("Hotword flag file detected, triggering recording mode")
                     last_check_time = mod_time
-                    eel.recording_mode()
+                    eel.recording_mode()()
 
             time.sleep(0.5)  # Check every half second
         except Exception as e:
